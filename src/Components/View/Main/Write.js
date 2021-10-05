@@ -1,5 +1,7 @@
 import React, { useState , useEffect } from 'react';
 import styled from 'styled-components';
+import axios from "axios"
+import {Link} from 'react-router-dom';
 
 function Write() {
     const [title, setTitle] = useState('');
@@ -16,11 +18,53 @@ function Write() {
 
 
 
+      
+      const [BlogData, setBlogData] = useState([]);
+
+      useEffect(() => {
+        getData();
+        // postData();
+      }, []);
+
+      const getData = () => {
+          axios
+          .get("http://localhost:3001/posts")
+          .then((response) => {
+            console.log("받은데이터", response.data);
+    
+            const myData = response.data;
+            console.log(myData);
+    
+            setBlogData(myData);
+          })
+          .catch(console.log("에러 데이터를 못받음"));
+      };
+      console.log("get확인", BlogData[6])
+
+      const postData = () => {
+        axios
+        .post("http://localhost:3001/posts", {
+            "id": 9,
+            "title": "axiostest9",
+            "body": "tes9"
+          })
+          .then(function (response) {
+            console.log("post성공",response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+    };
+    console.log("post시도")
+
+
       return (
         <WriteDiv>
                 <Title type='text' placeholder='제목을입력하세요.' onChange = {onChangeTitle}/>
                 <Contents placeholder='내용을입력하세요.' onChange = {onChangeContent} ></Contents>
-            <CreateBtn>게시하기</CreateBtn>
+            <Link to="/">
+            <CreateBtn onClick = {postData} >게시하기</CreateBtn>
+            </Link>
         </WriteDiv>
     );
 }
