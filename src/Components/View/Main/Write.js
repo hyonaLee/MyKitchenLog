@@ -1,60 +1,44 @@
 import styled from 'styled-components';
 import axios from "axios"
 import {Link} from 'react-router-dom';
-import React, { useState , useEffect, useRef } from 'react';
+import React, { useState , useEffect } from 'react';
 
 function Write() {
 
+    // input 받아오기
+    const [inputs, setInputs] = useState({
+      title: '',
+      contents: ''
+    });
+    const { title, contents } = inputs;
+      
+    const onChange = e => {
+      const { value, name } = e.target;
+      setInputs({
+        ...inputs,
+        [name]: value
+      })
+    }
 
-  // input 받아오기
-  const [inputs, setInputs] = useState({
-    title: '',
-    contents: ''
-  });
-  const { title, contents } = inputs;
-    
-  const onChange = e => {
-    const { value, name } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value
-    })
-  }
+    // 날짜정보얻기
+    const currentDate = new Date();
+    const cYear = currentDate.getFullYear();
+    const cMonth = currentDate.getMonth() + 1;
+    const cDate = currentDate.getDate();
+    const cHour = currentDate.getHours();
+    const cMin = currentDate.getMinutes();
+    const editTime = `${cYear}년 ${cMonth}월 ${cDate}일 ${cHour} : ${cMin}`
+    console.log(editTime);
 
-
-    // axios 라이브러리 data받아오기
-    // 성공시 then / 실패시 catch 실행
-    //   const [BlogData, setBlogData] = useState('');
-
-    //   useEffect(() => {
-    //     getData()
-    //   }, []);
-
-    //   const getData = () => {
-    //       axios
-    //       .get("http://localhost:3001/posts")
-    
-    //       .then((response) => {
-    //         console.log("받은데이터", response.data);
-    
-    //         const myData = response.data;
-    //         console.log(myData);
-    //         console.log(myData[0].title);
-    //         console.log(myData[1]);
-    
-    //         setBlogData(myData);
-    //       })
-    //       .catch(console.log("에러 데이터를 못받음"));
-    //   };
-    //   console.log("get확인", BlogData)
-
-    // input data보내기
+    // input data server로 보내기
+    const [id,setId] = useState(0)
       const postData = () => {
         axios
         .post("http://localhost:3001/posts", {
-            "id":5,
-            "title": {title},
-            "body": {contents}
+            "date": editTime,
+            "title": title,
+            "contents": contents,
+            "id": setId(id+1)
           })
           .then(function (response) {
             console.log("post성공",response);
