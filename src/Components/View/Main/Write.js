@@ -54,9 +54,11 @@ function Write() {
         <WriteDiv>
           <Title name="title" value={title} type='text' placeholder='제목을입력하세요.' onChange = {onChange} />
           <Contents name="contents" value={contents} placeholder='내용을입력하세요.' onChange = {onChange} />
+          <BtnDiv>
           <Link to="/">
-          <CreateBtn onClick={postData}>게시하기</CreateBtn>
+          <CreateBtn onClick={postData}>Post</CreateBtn>
           </Link>
+          </BtnDiv>
         </WriteDiv>
     );
 }
@@ -66,39 +68,49 @@ width: 100%;
 height: 800px;
 position: relative;
 top: 80px;
-background-color: pink;
+background-color: ivory;
 color: black;
 display: flex;
 flex-direction: column;
 
 `;
 const CreateBtn = styled.button`
-border-radius: 10px;
-border: 1px solid gray;
-height: 25px;
-width: 95px;
-font-size: 14px;
+border-radius: 14px;
+background-color: orange;
+color: white;
+border: none;
+height: 30px;
+width: 65px;
+font-size: 24px;
 line-height: 20px;
 padding: 0px 10px 0px 10px;
-margin-right: 20px;
+margin-right: 50px;
 margin-bottom: 10px;
-align-self: flex-end;
+cursor: pointer;
 `;
 const Title = styled.input`
 width: 80%;
 padding: 20px;
 margin: auto;
+margin-top: 30px;
 height: 50px;
 border: none;
 font-size: 25px;
+background-color: ivory;
 `;
 const Contents = styled.textarea`
 width: 80%;
 padding: 20px;
 margin: auto;
+margin-top: 30px;
+margin-bottom: 30px;
 height: 600px;
 border: none;
 font-size: 25px;
+background-color: ivory;
+`;
+const BtnDiv = styled.div`
+text-align: right;
 `;
 
 export default Write;

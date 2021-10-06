@@ -7,6 +7,8 @@ import '../../../App.css';
 
 const Main = () => {
     const [blogData, setBlogData] = useState([]);
+    const [click, setClick] = useState();
+
       useEffect(() => {
         axios
             .get("http://localhost:3001/posts")
@@ -20,14 +22,17 @@ const Main = () => {
                 console.log(typeof(blogData))
                 console.log(blogData)
 
-
+// function clickDiv () {
+  
+// console.log(e.target);
+// }
 
       // useEffect(() => {
       //   const crdate = blogData[0].date;
       //     console.log("useState에 잘들어감",blogData[0].date)
       //     console.log(typeof(blogData))
       // }, [blogData]);
-
+      console.log(click)
 
 //MAP활용해서수정하기
 //클릭시 from으로 이동
@@ -35,8 +40,8 @@ const Main = () => {
         <MainDiv>
       {blogData.map(function(value,index){
         return (
-          <Link to="Write">
-          <div className="list" key={index}>
+          <Link to="Detail">
+          <div className="list" key={value.id} >
             <h2 className="listfont">{value.title}</h2>
           </div>
       </Link>
@@ -50,9 +55,10 @@ const Main = () => {
 const MainDiv = styled.div`
 display: grid;
 grid-template-columns: repeat(5, 1fr);
-grid-gap: 50px 40px;
+grid-gap: 50px 0px;
 overflow: hidden;
 position: absolute;
+padding: 80px 0px;
 top: 80px;
 width: 100%;
 background-color: ivory;

@@ -1,4 +1,3 @@
-
 body,
 html {
   margin: auto;
@@ -8,16 +7,19 @@ html {
 
 .list {
   margin: 0;
-padding: 25px;
-line-height: 40px;
-box-sizing: border-box;
-display: flex;
-width: 250px;
-height: 350px;
-background-color: orange;
-margin: auto;
+  padding: 25px;
+  line-height: 40px;
+  box-sizing: border-box;
+  display: flex;
+  width: 250px;
+  height: 350px;
+  background-color: orange;
+  margin: auto;
 }
-.listfont{
+.list:hover {
+  border: 2px solid ivory;
+}
+.listfont {
   font-size: 24px;
   color: ivory;
 }
