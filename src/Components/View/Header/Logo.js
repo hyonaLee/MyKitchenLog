@@ -4,14 +4,20 @@ import styled from 'styled-components';
 function Logo() {
     return (
         <LogoDiv>
-            <h1>My Kitchen Blog</h1>
+            <LogoFont>My Kitchen Blog</LogoFont>
         </LogoDiv>
     );
 }
 
+const LogoFont = styled.h1`
+font-size: 32px;
+@media screen and (max-width: 300px) {
+    font-size: 20px;
+   }
+`;
 const LogoDiv = styled.div`
-padding : 0px 10px 0px 10px;
 display: flex;
+margin-left: 50px;
 `;
 
 export default Logo;

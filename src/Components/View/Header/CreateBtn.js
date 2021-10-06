@@ -8,14 +8,21 @@ function CreateBtn() {
 }
 
 const NewOpenBtn = styled.button`
-border-radius: 10px;
-border: 1px solid gray;
-height: 25px;
-width: 55px;
-font-size: 14px;
+border-radius: 14px;
+border: none;
+background-color: orange;
+color: white;
+height: 30px;
+width: 65px;
+font-size: 24px;
 line-height: 20px;
-padding: 0px 10px 0px 10px;
-margin-right: 20px;
+margin-right: 50px;
+cursor: pointer;
+@media screen and (max-width: 330px) {
+    font-size: 18px;
+    height: 22px;
+    width: 55px;
+   }
 `;
 
 export default CreateBtn;

@@ -19,6 +19,7 @@ function Header() {
 
 const HeaderDiv = styled.div`
     position: fixed;
+    height: 80px;
     top: 0px;
     width: 100%;
     background-color: ivory;
@@ -28,6 +29,7 @@ const HeaderDiv = styled.div`
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    z-index: 90;
     `;
 
 export default Header;
