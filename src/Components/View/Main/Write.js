@@ -28,7 +28,7 @@ function Write() {
     const cHour = currentDate.getHours();
     const cMin = currentDate.getMinutes();
     const editTime = `${cYear}년 ${cMonth}월 ${cDate}일 ${cHour} : ${cMin}`
-    console.log(editTime);
+    // console.log(editTime);
 
     // input data server로 보내기
     const [id,setId] = useState(0)
@@ -47,7 +47,7 @@ function Write() {
             console.log(error);
           });
     };
-    console.log("post시도")
+    // console.log("post시도")
 
 
       return (
