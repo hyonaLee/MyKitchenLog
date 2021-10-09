@@ -4,10 +4,9 @@ import axios from "axios"
 import { Link } from 'react-router-dom';
 import '../../../App.css';
 
-
 const Main = () => {
+
     const [blogData, setBlogData] = useState([]);
-    const [click, setClick] = useState();
 
       useEffect(() => {
         axios
@@ -17,32 +16,20 @@ const Main = () => {
               // console.log("받은데이터", response.data);
               setBlogData(response.data);
             })
-            .catch(console.log("에러 데이터를 못받음"));
-      }, []);
+            // .catch(console.log("에러 데이터를 못받음"));
+      }, [setBlogData]);
                 console.log(typeof(blogData))
                 console.log(blogData)
 
-// function clickDiv () {
-  
-// console.log(e.target);
-// }
 
-      // useEffect(() => {
-      //   const crdate = blogData[0].date;
-      //     console.log("useState에 잘들어감",blogData[0].date)
-      //     console.log(typeof(blogData))
-      // }, [blogData]);
-      console.log(click)
 
-//MAP활용해서수정하기
-//클릭시 from으로 이동
     return (
         <MainDiv>
-      {blogData.map(function(value,index){
+      {blogData.map((blogData) => {
         return (
-          <Link to="Detail">
-          <div className="list" key={value.id} >
-            <h2 className="listfont">{value.title}</h2>
+          <Link to={`Detail/${blogData.id}`}>
+          <div className="list" key={blogData.id}>
+            <h2 className="listfont">{blogData.title}</h2>
           </div>
       </Link>
         )
@@ -58,7 +45,7 @@ grid-template-columns: repeat(5, 1fr);
 grid-gap: 50px 0px;
 overflow: hidden;
 position: absolute;
-padding: 80px 0px;
+padding: 50px 0px;
 top: 80px;
 width: 100%;
 background-color: ivory;
@@ -77,21 +64,5 @@ color: black;
 }
 `;
 
-const MainFont = styled.h2`
-font-size: 24px;
-color: ivory;
-`;
-const PostDiv = styled.div`
-margin: 0;
-padding: 25px;
-line-height: 40px;
-box-sizing: border-box;
-display: flex;
-width: 250px;
-height: 350px;
-background-color: orange;
-color: black;
-margin: auto;
-`;
 
 export default Main;
