@@ -1,9 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
+import axios from "axios"
 
 function Detail() {
-  let [modal, changeModal] = useState(false);
+  const [modal, changeModal] = useState(false);
+  const [blogData, setBlogData] = useState([]);
+  const currentid = Number(useParams().id);
+  console.log("클릭한 게시물의 ID는",currentid);
+
+
+  const postFilter = blogData.filter((value) => {
+    // console.log("파라미터: ", value);
+    return value.id === Number(currentid);
+  });
+
+
+  useEffect(() => {
+    axios
+        .get("http://localhost:3001/posts")
+        .then(response => {
+        //   console.log("받은데이터", response);
+        // console.log("받은데이터", response.data);
+          setBlogData(response.data);
+        })
+        // .catch(console.log("에러 데이터를 못받음"));
+  }, []);
+            // console.log(typeof(blogData))
+            
+  // function DelPosts() {
+  //   axios
+  //       .delete(`http://localhost:3001/posts/Detail/${currentid}`)
+  //       .then(response => {
+  //         if(response.status ==='200'){
+  //         console.log("삭제완료");
+  //       }console.log("삭제실패");
+  //       })
+  // }
 
   function Modal() {
     return (
@@ -19,21 +52,29 @@ function Detail() {
     );
   }
 
-
     return (
 
         <>
           <DetailDiv>
-            <TitelFont> 제목 </TitelFont>
-            <DateFont> 작성일 </DateFont>
+            <TitelFont> {postFilter.map(v => {
+              return JSON.stringify(v.title)
+            })} 
+            </TitelFont>
+            <DateFont> 
+            {postFilter.map(v => {
+              return JSON.stringify(v.date)
+            })} 
+            </DateFont>
               <BtnDiv>
-                <Link to="Write">
+                <Link to="/Write">
               <EditBtn>수정</EditBtn>
                 </Link>
               <EditBtn onClick={ ()=>{changeModal(!modal)} }>삭제</EditBtn>
               </BtnDiv>
               <ContentDiv>
-              <ContentFont> 내용 </ContentFont>
+              <ContentFont> {postFilter.map(v => {
+              return JSON.stringify(v.contents)
+            })} </ContentFont>
               </ContentDiv>
               {
       modal === true ?
@@ -44,6 +85,10 @@ function Detail() {
         </>
     );
 }
+
+
+
+
 
 const TitelFont = styled.h1`
 font-size: 60px;
@@ -153,5 +198,4 @@ cursor: pointer;
 `;
 
 export default Detail;
-
 

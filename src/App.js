@@ -14,6 +14,7 @@ function App() {
         <Route exact path="/" component={Main}/>
         <Route exact path="/Write" component={Write}/>
         <Route exact path="/Detail" component={Detail}/>
+        <Route exact path="/Detail/:id" component={Detail}/>
     </div>
   );
 }
