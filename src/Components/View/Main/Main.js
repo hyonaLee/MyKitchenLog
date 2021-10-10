@@ -5,23 +5,21 @@ import { Link } from 'react-router-dom';
 import '../../../App.css';
 
 const Main = () => {
+  const [blogData, setBlogData] = useState([]);
 
-    const [blogData, setBlogData] = useState([]);
-
-      useEffect(() => {
-        axios
-            .get("http://localhost:3001/posts")
-            .then(response => {
-            //   console.log("받은데이터", response);
-              // console.log("받은데이터", response.data);
-              setBlogData(response.data);
-            })
-            // .catch(console.log("에러 데이터를 못받음"));
-      }, [setBlogData]);
-                console.log(typeof(blogData))
-                console.log(blogData)
-
-
+    // server로부터 data 요청
+    useEffect(() => {
+      axios
+          .get("http://localhost:3001/posts")
+          .then(response => {
+          //   console.log("받은데이터", response);
+          // console.log("받은데이터", response.data);
+          setBlogData(response.data);
+          })
+          .catch(console.log("에러 데이터를 못받음"));
+    }, [setBlogData]);
+    // console.log(typeof(blogData))
+    // console.log(blogData)
 
     return (
         <MainDiv>
@@ -29,7 +27,7 @@ const Main = () => {
         return (
           <Link to={`Detail/${blogData.id}`}>
           <div className="list" key={blogData.id}>
-            <h2 className="listfont">{blogData.title}</h2>
+            <h2 className="listfont">My Kitchen 레시피 - {blogData.title}</h2>
           </div>
       </Link>
         )
