@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 import "../../../App.css";
 
 const Main = () => {
-  const [blogData, setBlogData] = useState([]);
 
-  // server로부터 data 요청
+  // JSON server
+  const [blogData, setBlogData] = useState([]);
+  // (GET) serer로부터 data 불러오기
   useEffect(() => {
     axios
       .get("http://localhost:3001/posts")
