@@ -10,7 +10,7 @@ function Header() {
             <Link to="/">
                 <Logo/>
             </Link>
-            <Link to="Write">
+            <Link to="/NewPost">
                 <CreateBtn/>
             </Link>
         </HeaderDiv>

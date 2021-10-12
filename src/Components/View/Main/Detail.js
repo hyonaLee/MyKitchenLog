@@ -3,34 +3,30 @@ import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
-function Detail({ getData }) {
+function Detail() {
   const [blogData, setBlogData] = useState([]);
   const currentid = Number(useParams().id);
-  // console.log("클릭한 게시물의 ID는",currentid);
-  // main에서 ,클릭된 id 가져오기
-  getData(currentid);
+  console.log("클릭한 게시물의 ID는",currentid);
+
   const postFilter = blogData.filter((value) => {
-    // console.log("파라미터: ", value);
+    // console.log("postFilter: ", value);
     return value.id === Number(currentid);
   });
+  console.log("postFilter",postFilter)
 
-  // server로부터 data 요청
+  // (GET) server로부터 data 요청
   useEffect(() => {
     axios
       .get("http://localhost:3001/posts")
       .then((response) => {
-        //   console.log("받은데이터", response);
-        // console.log("받은데이터", response.data);
+        // console.log("받은데이터 접근방법", response.data);
         setBlogData(response.data);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [setBlogData]);
-  // console.log(typeof(blogData))
-  // console.log(blogData)
-
-  // server로 data 삭제 요청
+  // (DEL) server로 data 삭제 요청
   function DelPosts() {
     console.log("currentid", currentid);
     axios
@@ -58,7 +54,9 @@ function Detail({ getData }) {
             취소
           </CxlBtn>
           <Link to="/">
-            <DelBtn onClick={DelPosts}>삭제</DelBtn>
+            <DelBtn onClick={DelPosts}>
+            삭제
+            </DelBtn>
           </Link>
         </ModalDiv>
       </BackDiv>
@@ -67,7 +65,6 @@ function Detail({ getData }) {
 
   return (
     postFilter.length !== 0 && (
-      <>
         <DetailDiv>
           <TitelFont>
             My Kitchen 레시피 - <br />
@@ -75,7 +72,7 @@ function Detail({ getData }) {
           </TitelFont>
           <DateFont>{postFilter[0].date}</DateFont>
           <BtnDiv>
-            <Link to={`/Detail/Write/${currentid}`}>
+            <Link to={`/Edit/${currentid}`}>
               <EditBtn>수정</EditBtn>
             </Link>
             <EditBtn
@@ -91,7 +88,6 @@ function Detail({ getData }) {
           </ContentDiv>
           {modal === true ? <Modal /> : null}
         </DetailDiv>
-      </>
     )
   );
 }
@@ -148,6 +144,8 @@ const EditBtn = styled.button`
     text-decoration: underline;
   }
 `;
+
+// Modal Style
 const BackDiv = styled.div`
   display: block;
   width: 100vw;
