@@ -4,8 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 
 // 미완성.
-// INPUT에 VALUE값 넣기
-// 재료부분 해쉬로 추가 기능
+// 재료부분 해쉬로 추가 기능.
+// 수정버튼 눌른후 아무작업안하고 post 누르면 다 날아가는 오류.
 
 function Edit() {
   const [blogData, setBlogData] = useState([]);
@@ -17,20 +17,6 @@ function Edit() {
     return value.id === Number(currentid);
   });
   console.log("postFilter", postFilter);
-
-  // user가 작성한 input 받아오기
-  const [inputs, setInputs] = useState({
-    title: "",
-    contents: "",
-  });
-  const { title, contents } = inputs;
-  const onChange = (e) => {
-    const { value, name } = e.target;
-    setInputs({
-      ...inputs,
-      [name]: value,
-    });
-  };
 
   // 날짜정보얻기
   const currentDate = new Date();
@@ -53,13 +39,31 @@ function Edit() {
       });
   }, []);
 
+  const currentTitle = postFilter.length !== 0 && postFilter[0].title;
+  const currentContents = postFilter.length !== 0 && postFilter[0].contents;
+  console.log(currentTitle);
+  console.log(currentContents);
+
+  const [modititle, setModititle] = useState(currentTitle);
+  const [modicontents, setModicontents] = useState(currentContents);
+
+  const EditTitle = (event) => {
+    setModititle(event.target.value);
+  };
+  console.log(currentTitle)
+  console.log(modititle);
+
+  const EditContents = (event) => {
+    setModicontents(event.target.value);
+  };
+
   //input data server로 수정요청
   const modifiyData = () => {
     axios
       .put(`http://localhost:3001/posts/${currentid}`, {
         date: editTime,
-        title: title,
-        contents: contents,
+        title: modititle,
+        contents: modicontents,
       })
       .then(function (response) {
         console.log("수정성공", response);
@@ -73,9 +77,11 @@ function Edit() {
     postFilter.length !== 0 && (
       // 수정
       <WriteDiv>
-        <Title name="title" value={title} type="text" onChange={onChange} />
-        <Contents name="contents" onChange={onChange}>
-          여기에 나타나야하는데
+        <Title name="title" onChange={EditTitle}>
+          {currentTitle}
+        </Title>
+        <Contents name="contents" onChange={EditContents}>
+          {currentContents}
         </Contents>
         <BtnDiv>
           <Link to="/">
@@ -111,12 +117,13 @@ const CreateBtn = styled.button`
   margin-bottom: 10px;
   cursor: pointer;
 `;
-const Title = styled.input`
+const Title = styled.textarea`
   width: 80%;
   padding: 20px;
   margin: auto;
   margin-top: 30px;
   height: 50px;
+  line-height: 45px;
   border: none;
   font-size: 25px;
   background-color: ivory;
