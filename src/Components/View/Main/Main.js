@@ -1,28 +1,11 @@
 import styled from "styled-components";
-import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import "../../../App.css";
+import useLoad from "../../Hooks/useLoad";
 
 const Main = () => {
-
-  // JSON server
-  const [blogData, setBlogData] = useState([]);
-  // (GET) serer로부터 data 불러오기
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/posts")
-      .then((response) => {
-        //   console.log("받은데이터", response);
-        // console.log("받은데이터", response.data);
-        setBlogData(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [setBlogData]);
-  // console.log(typeof(blogData))
-  // console.log(blogData)
+// (GET) serer로부터 data 불러오기
+  const blogData = useLoad()
 
   return (
     <MainDiv>
@@ -30,6 +13,7 @@ const Main = () => {
         return (
           <Link to={`Detail/${blogData.id}`}>
             <div className="list" key={blogData.id}>
+             {/* <img src={require('../Main/coffe.jpg')}/> */}
               <h2 className="listfont">My Kitchen 레시피 - {blogData.title}</h2>
             </div>
           </Link>

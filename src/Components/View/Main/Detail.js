@@ -2,33 +2,22 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
+import useLoad from "../../Hooks/useLoad";
 
 function Detail() {
-  const [blogData, setBlogData] = useState([]);
+// (GET) serer로부터 data 불러오기
+  const blogData = useLoad()
+// Click한 ID정보 받아오기
   const currentid = Number(useParams().id);
-  console.log("클릭한 게시물의 ID는",currentid);
-
+  // console.log("클릭한 게시물의 ID는", currentid);
   const postFilter = blogData.filter((value) => {
     // console.log("postFilter: ", value);
     return value.id === Number(currentid);
   });
-  console.log("postFilter",postFilter)
+  // console.log("postFilter", postFilter);
 
-  // (GET) server로부터 data 요청
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/posts")
-      .then((response) => {
-        // console.log("받은데이터 접근방법", response.data);
-        setBlogData(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [setBlogData]);
-  // (DEL) server로 data 삭제 요청
+// (DEL) server로 data 삭제 요청
   function DelPosts() {
-    console.log("currentid", currentid);
     axios
       .delete(`http://localhost:3001/posts/${currentid}`)
       .then((response) => {
@@ -41,6 +30,7 @@ function Detail() {
 
   // modal 상태관리
   const [modal, changeModal] = useState(false);
+
   function Modal() {
     return (
       <BackDiv>
@@ -128,7 +118,6 @@ const DetailDiv = styled.div`
     padding: 30px 50px;
   }
 `;
-
 const EditBtn = styled.button`
   border-radius: 10px;
   background-color: ivory;
@@ -186,7 +175,6 @@ const DelBtn = styled.button`
   color: ivory;
   cursor: pointer;
 `;
-
 const CxlBtn = styled.button`
   border-radius: 5px;
   border: 1px solid orange;

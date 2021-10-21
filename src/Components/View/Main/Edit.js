@@ -1,24 +1,26 @@
 import styled from "styled-components";
 import axios from "axios";
 import { Link, useParams } from "react-router-dom";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import useLoad from "../../Hooks/useLoad";
 
 // 미완성.
 // 재료부분 해쉬로 추가 기능.
 // 수정버튼 눌른후 아무작업안하고 post 누르면 다 날아가는 오류.
 
 function Edit() {
-  const [blogData, setBlogData] = useState([]);
+// (GET) serer로부터 data 불러오기
+  const blogData = useLoad()
+// Click한 ID정보 받아오기
   const currentid = Number(useParams().id);
-  console.log("클릭한 게시물의 ID는", currentid);
-
+  // console.log("클릭한 게시물의 ID는", currentid);
   const postFilter = blogData.filter((value) => {
     // console.log("postFilter: ", value);
     return value.id === Number(currentid);
   });
-  console.log("postFilter", postFilter);
+  // console.log("postFilter", postFilter);
 
-  // 날짜정보얻기
+// 날짜정보얻기
   const currentDate = new Date();
   const cYear = currentDate.getFullYear();
   const cMonth = currentDate.getMonth() + 1;
@@ -27,37 +29,22 @@ function Edit() {
   const cMin = currentDate.getMinutes();
   const editTime = `${cYear}년 ${cMonth}월 ${cDate}일 ${cHour}시 ${cMin}분`;
 
-  // server에서 정보 받아오기
-  useEffect(() => {
-    axios
-      .get("http://localhost:3001/posts")
-      .then((response) => {
-        setBlogData(response.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
+// Post 수정하기
   const currentTitle = postFilter.length !== 0 && postFilter[0].title;
   const currentContents = postFilter.length !== 0 && postFilter[0].contents;
-  console.log(currentTitle);
-  console.log(currentContents);
-
   const [modititle, setModititle] = useState(currentTitle);
   const [modicontents, setModicontents] = useState(currentContents);
-
   const EditTitle = (event) => {
     setModititle(event.target.value);
   };
-  console.log(currentTitle)
-  console.log(modititle);
-
   const EditContents = (event) => {
     setModicontents(event.target.value);
   };
+  // console.log(currentTitle);
+  // console.log(currentContents);
+  // console.log(modititle);
 
-  //input data server로 수정요청
+// (PUT) serer로 data 수정 요청
   const modifiyData = () => {
     axios
       .put(`http://localhost:3001/posts/${currentid}`, {
