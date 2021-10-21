@@ -91,6 +91,7 @@ const DateFont = styled.h4`
   padding-left: 30px;
 `;
 const ContentFont = styled.p`
+  white-space: pre-wrap;
   font-size: 40px;
 `;
 const BtnDiv = styled.div`
