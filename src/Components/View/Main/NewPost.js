@@ -4,8 +4,14 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function NewPost() {
-    
-  // 날짜정보얻기
+
+// 이미지 업로드
+  const [loadfile, setLoadfile] = useState();
+  const Loadedfile = (e) => {
+      setLoadfile(URL.createObjectURL(e.target.files[0]))
+  }
+
+// 날짜정보얻기
   const currentDate = new Date();
   const cYear = currentDate.getFullYear();
   const cMonth = currentDate.getMonth() + 1;
@@ -14,27 +20,28 @@ function NewPost() {
   const cMin = currentDate.getMinutes();
   const editTime = `${cYear}년 ${cMonth}월 ${cDate}일 ${cHour}시 ${cMin}분`;
 
-    // user가 작성한 input 받아오기
-    const [inputs, setInputs] = useState({
-        title: "",
-        contents: "",
-      });
-      const { title, contents } = inputs;
-      const onChange = (e) => {
-        const { value, name } = e.target;
-        setInputs({
-          ...inputs,
-          [name]: value,
-        });
-      };
+// user가 작성한 input 받아오기
+  const [inputs, setInputs] = useState({
+      title: "",
+      contents: "",
+    });
+  const { title, contents } = inputs;
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
 
-  // input data server로 보내기
+// (POST) serer로 data 생성 요청
   const postData = () => {
     axios
       .post("http://localhost:3001/posts", {
         date: editTime,
         title: title,
         contents: contents,
+        imgURL: loadfile,
       })
       .then(function (response) {
         console.log("post성공", response);
@@ -60,6 +67,8 @@ function NewPost() {
         onChange={onChange}
       />
       <BtnDiv>
+      <img src={loadfile} alt="Blob URL" width="100px" />
+        <input type="file" accept="image/*" onChange={Loadedfile}/>
         <Link to="/">
           <CreateBtn onClick={postData}>Post</CreateBtn>
         </Link>
@@ -67,7 +76,6 @@ function NewPost() {
     </WriteDiv>
     )
 }
-
 
 const WriteDiv = styled.div`
   width: 100%;

@@ -6,6 +6,7 @@ import useLoad from "../../Hooks/useLoad";
 
 // 미완성.
 // 재료부분 해쉬로 추가 기능.
+// 사진 업로드 기능.
 // 수정버튼 눌른후 아무작업안하고 post 누르면 다 날아가는 오류.
 
 function Edit() {

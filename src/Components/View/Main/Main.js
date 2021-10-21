@@ -13,7 +13,7 @@ const Main = () => {
         return (
           <Link to={`Detail/${blogData.id}`}>
             <div className="list" key={blogData.id}>
-             {/* <img src={require('../Main/coffe.jpg')}/> */}
+             <img src={blogData.imgURL} alt="Blob URL" height="200px" />
               <h2 className="listfont">My Kitchen 레시피 - {blogData.title}</h2>
             </div>
           </Link>
