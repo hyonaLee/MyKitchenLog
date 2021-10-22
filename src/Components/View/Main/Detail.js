@@ -74,6 +74,7 @@ function Detail() {
             </EditBtn>
           </BtnDiv>
           <ContentDiv>
+            <img src={blogData.imgURL} alt="Blob URL" height="220px" />
             <ContentFont>{postFilter[0].contents}</ContentFont>
           </ContentDiv>
           {modal === true ? <Modal /> : null}

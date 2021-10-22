@@ -10,6 +10,14 @@ import useLoad from "../../Hooks/useLoad";
 // 수정버튼 눌른후 아무작업안하고 post 누르면 다 날아가는 오류.
 
 function Edit() {
+
+  
+// 이미지 업로드
+const [loadfile, setLoadfile] = useState();
+const Loadedfile = (e) => {
+    setLoadfile(URL.createObjectURL(e.target.files[0]))
+}
+
 // (GET) serer로부터 data 불러오기
   const blogData = useLoad()
 // Click한 ID정보 받아오기
@@ -72,10 +80,12 @@ function Edit() {
           {currentContents}
         </Contents>
         <BtnDiv>
-          <Link to="/">
-            <CreateBtn onClick={modifiyData}>Post</CreateBtn>
-          </Link>
-        </BtnDiv>
+      <img src={loadfile} alt="Blob URL" width="100px" />
+        <input type="file" accept="image/*" onChange={Loadedfile}/>
+        <Link to="/">
+          <CreateBtn onClick={modifiyData}>Post</CreateBtn>
+        </Link>
+      </BtnDiv>
       </WriteDiv>
     )
   );

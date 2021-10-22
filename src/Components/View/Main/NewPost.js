@@ -7,9 +7,21 @@ function NewPost() {
 
 // 이미지 업로드
   const [loadfile, setLoadfile] = useState();
+  const [currentfile, setCurrentfile] = useState();
+
   const Loadedfile = (e) => {
       setLoadfile(URL.createObjectURL(e.target.files[0]))
-  }
+      let fileReader = new FileReader();
+      // e.preventDefault();
+      fileReader.readAsDataURL(e.target.files[0])
+      fileReader.onload = function (e) {
+        setCurrentfile(e.target.result)
+        // console.log(e.target.result)
+      }
+      // console.log(e.target.files[0])
+      // console.log(e.target.value)
+    }
+
 
 // 날짜정보얻기
   const currentDate = new Date();
@@ -41,7 +53,7 @@ function NewPost() {
         date: editTime,
         title: title,
         contents: contents,
-        imgURL: loadfile,
+        imgURL: currentfile,
       })
       .then(function (response) {
         console.log("post성공", response);
