@@ -15,6 +15,7 @@ const Main = () => {
             <div className="list" key={blogData.id}>
              <img src={blogData.imgURL} alt="Blob URL" height="200px" />
               <h2 className="listfont">My Kitchen 레시피 - {blogData.title}</h2>
+              <h3 className="tag"> {"#" + blogData.tag} </h3>
             </div>
           </Link>
         );

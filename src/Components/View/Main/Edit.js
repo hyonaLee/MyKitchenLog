@@ -6,6 +6,7 @@ import useLoad from "../../Hooks/useLoad";
 
 // 미완성.
 // 재료부분 해쉬로 추가 기능.
+// 재료 기준으로 검색 기능 구현.
 // 사진 업로드 기능.
 // 수정버튼 눌른후 아무작업안하고 post 누르면 다 날아가는 오류.
 
@@ -14,9 +15,16 @@ function Edit() {
   
 // 이미지 업로드
 const [loadfile, setLoadfile] = useState();
+const [currentfile, setCurrentfile] = useState();
+
 const Loadedfile = (e) => {
     setLoadfile(URL.createObjectURL(e.target.files[0]))
-}
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(e.target.files[0])
+    fileReader.onload = function (e) {
+      setCurrentfile(e.target.result)
+    }
+  }
 
 // (GET) serer로부터 data 불러오기
   const blogData = useLoad()
@@ -40,11 +48,16 @@ const Loadedfile = (e) => {
 
 // Post 수정하기
   const currentTitle = postFilter.length !== 0 && postFilter[0].title;
+  const currentTag = postFilter.length !== 0 && postFilter[0].tag;
   const currentContents = postFilter.length !== 0 && postFilter[0].contents;
   const [modititle, setModititle] = useState(currentTitle);
+  const [moditag, setModitag] = useState(currentTag);
   const [modicontents, setModicontents] = useState(currentContents);
   const EditTitle = (event) => {
     setModititle(event.target.value);
+  };
+  const EditTag = (event) => {
+    setModitag(event.target.value);
   };
   const EditContents = (event) => {
     setModicontents(event.target.value);
@@ -53,13 +66,15 @@ const Loadedfile = (e) => {
   // console.log(currentContents);
   // console.log(modititle);
 
-// (PUT) serer로 data 수정 요청
+// (PUT) server로 data 수정 요청
   const modifiyData = () => {
     axios
       .put(`http://localhost:3001/posts/${currentid}`, {
         date: editTime,
         title: modititle,
+        tag: moditag,
         contents: modicontents,
+        imgURL: currentfile,
       })
       .then(function (response) {
         console.log("수정성공", response);
@@ -76,6 +91,10 @@ const Loadedfile = (e) => {
         <Title name="title" onChange={EditTitle}>
           {currentTitle}
         </Title>
+        <Tag
+        name="tag" onChange={EditTag}>
+          {currentTag}
+        </Tag> 
         <Contents name="contents" onChange={EditContents}>
           {currentContents}
         </Contents>
@@ -121,7 +140,16 @@ const Title = styled.textarea`
   margin: auto;
   margin-top: 30px;
   height: 50px;
-  line-height: 45px;
+  border: none;
+  font-size: 25px;
+  background-color: ivory;
+`;
+const Tag = styled.textarea`
+  width: 80%;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30px;
+  height: 50px;
   border: none;
   font-size: 25px;
   background-color: ivory;

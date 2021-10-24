@@ -57,10 +57,11 @@ function Detail() {
     postFilter.length !== 0 && (
         <DetailDiv>
           <TitelFont>
-            My Kitchen 레시피 - <br />
+            My Kitchen 레시피 <br />
             {postFilter[0].title}
           </TitelFont>
           <DateFont>{postFilter[0].date}</DateFont>
+          <DateFont>#{postFilter[0].tag}</DateFont>
           <BtnDiv>
             <Link to={`/Edit/${currentid}`}>
               <EditBtn>수정</EditBtn>
@@ -74,7 +75,7 @@ function Detail() {
             </EditBtn>
           </BtnDiv>
           <ContentDiv>
-            <img src={blogData.imgURL} alt="Blob URL" height="220px" />
+            <img src={postFilter[0].imgURL} alt="img URL" width="100%" />
             <ContentFont>{postFilter[0].contents}</ContentFont>
           </ContentDiv>
           {modal === true ? <Modal /> : null}
@@ -94,6 +95,7 @@ const DateFont = styled.h4`
 const ContentFont = styled.p`
   white-space: pre-wrap;
   font-size: 40px;
+  line-height: 70px;
 `;
 const BtnDiv = styled.div`
   float: right;

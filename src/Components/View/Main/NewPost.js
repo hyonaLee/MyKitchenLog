@@ -35,9 +35,10 @@ function NewPost() {
 // user가 작성한 input 받아오기
   const [inputs, setInputs] = useState({
       title: "",
+      tag: "",
       contents: "",
     });
-  const { title, contents } = inputs;
+  const { title, contents, tag } = inputs;
   const onChange = (e) => {
     const { name, value } = e.target;
     setInputs({
@@ -45,6 +46,11 @@ function NewPost() {
       [name]: value,
     });
   };
+  console.log(inputs)
+
+  const loadTag = (e) => {
+
+  }
 
 // (POST) serer로 data 생성 요청
   const postData = () => {
@@ -52,6 +58,7 @@ function NewPost() {
       .post("http://localhost:3001/posts", {
         date: editTime,
         title: title,
+        tag: tag,
         contents: contents,
         imgURL: currentfile,
       })
@@ -69,13 +76,21 @@ function NewPost() {
         name="title"
         value={title}
         type="text"
-        placeholder="제목을입력하세요."
+        placeholder="요리명"
+        onChange={onChange}
+      />
+      <Tag
+        name="tag"
+        value={tag}
+        type="text"
+        placeholder="주재료"
+        onKeyUp={loadTag}
         onChange={onChange}
       />
       <Contents
         name="contents"
         value={contents}
-        placeholder="내용을입력하세요."
+        placeholder="내용"
         onChange={onChange}
       />
       <BtnDiv>
@@ -113,7 +128,17 @@ const CreateBtn = styled.button`
   margin-bottom: 10px;
   cursor: pointer;
 `;
-const Title = styled.input`
+const Title = styled.textarea`
+  width: 80%;
+  padding: 20px;
+  margin: auto;
+  margin-top: 30px;
+  height: 50px;
+  border: none;
+  font-size: 25px;
+  background-color: ivory;
+`;
+const Tag = styled.textarea`
   width: 80%;
   padding: 20px;
   margin: auto;
