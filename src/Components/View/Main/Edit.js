@@ -12,19 +12,11 @@ import useLoad from "../../Hooks/useLoad";
 
 function Edit() {
 
-  
-// 이미지 업로드
+      // 이미지 업로드
 const [loadfile, setLoadfile] = useState();
-const [currentfile, setCurrentfile] = useState();
+const [currentURL, setCurrentURL] = useState();
 
-const Loadedfile = (e) => {
-    setLoadfile(URL.createObjectURL(e.target.files[0]))
-    let fileReader = new FileReader();
-    fileReader.readAsDataURL(e.target.files[0])
-    fileReader.onload = function (e) {
-      setCurrentfile(e.target.result)
-    }
-  }
+
 
 // (GET) serer로부터 data 불러오기
   const blogData = useLoad()
@@ -53,6 +45,7 @@ const Loadedfile = (e) => {
   const [modititle, setModititle] = useState(currentTitle);
   const [moditag, setModitag] = useState(currentTag);
   const [modicontents, setModicontents] = useState(currentContents);
+  const [modiURL, setModiURL] = useState(currentURL);
   const EditTitle = (event) => {
     setModititle(event.target.value);
   };
@@ -62,19 +55,29 @@ const Loadedfile = (e) => {
   const EditContents = (event) => {
     setModicontents(event.target.value);
   };
-  // console.log(currentTitle);
-  // console.log(currentContents);
-  // console.log(modititle);
+  const EditURL = (event) => {
+    setModiURL(event.target.value);
+    setLoadfile(URL.createObjectURL(event.target.files[0]))
+    let fileReader = new FileReader();
+    fileReader.readAsDataURL(event.target.files[0])
+    fileReader.onload = function (event) {
+      setCurrentURL(event.target.result)
+  }
+  };
+  console.log(modititle);
+  console.log(moditag);
+  console.log(modicontents);
+  console.log(modiURL);
 
-// (PUT) server로 data 수정 요청
+// (PUT/PATCH) server로 data 수정 요청 /
   const modifiyData = () => {
     axios
-      .put(`http://localhost:3001/posts/${currentid}`, {
+      .patch(`http://localhost:3001/posts/${currentid}`, {
         date: editTime,
-        title: modititle,
-        tag: moditag,
-        contents: modicontents,
-        imgURL: currentfile,
+        title: modititle === false ? currentTitle : modititle,
+        tag: moditag === false ? currentTag : moditag,
+        contents: modicontents === false ? currentContents : modicontents,
+        imgURL: modiURL === undefined ? currentURL : modiURL,
       })
       .then(function (response) {
         console.log("수정성공", response);
@@ -100,7 +103,7 @@ const Loadedfile = (e) => {
         </Contents>
         <BtnDiv>
       <img src={loadfile} alt="Blob URL" width="100px" />
-        <input type="file" accept="image/*" onChange={Loadedfile}/>
+        <input type="file" accept="image/*" onChange={EditURL}/>
         <Link to="/">
           <CreateBtn onClick={modifiyData}>Post</CreateBtn>
         </Link>
@@ -112,7 +115,7 @@ const Loadedfile = (e) => {
 
 const WriteDiv = styled.div`
   width: 100%;
-  height: 800px;
+  height: 640px;
   position: relative;
   top: 80px;
   background-color: ivory;
@@ -139,7 +142,7 @@ const Title = styled.textarea`
   padding: 20px;
   margin: auto;
   margin-top: 30px;
-  height: 50px;
+  height: 75px;
   border: none;
   font-size: 25px;
   background-color: ivory;
@@ -149,7 +152,7 @@ const Tag = styled.textarea`
   padding: 20px;
   margin: auto;
   margin-top: 30px;
-  height: 50px;
+  height: 75px;
   border: none;
   font-size: 25px;
   background-color: ivory;

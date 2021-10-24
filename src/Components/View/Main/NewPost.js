@@ -106,7 +106,7 @@ function NewPost() {
 
 const WriteDiv = styled.div`
   width: 100%;
-  height: 800px;
+  height: 640px;
   position: relative;
   top: 80px;
   background-color: ivory;
@@ -133,7 +133,7 @@ const Title = styled.textarea`
   padding: 20px;
   margin: auto;
   margin-top: 30px;
-  height: 50px;
+  height: 75px;
   border: none;
   font-size: 25px;
   background-color: ivory;
@@ -143,7 +143,7 @@ const Tag = styled.textarea`
   padding: 20px;
   margin: auto;
   margin-top: 30px;
-  height: 50px;
+  height: 75px;
   border: none;
   font-size: 25px;
   background-color: ivory;

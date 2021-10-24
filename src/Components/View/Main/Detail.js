@@ -58,7 +58,7 @@ function Detail() {
         <DetailDiv>
           <TitelFont>
             My Kitchen 레시피 <br />
-            {postFilter[0].title}
+            -{postFilter[0].title}
           </TitelFont>
           <DateFont>{postFilter[0].date}</DateFont>
           <DateFont>#{postFilter[0].tag}</DateFont>
@@ -101,7 +101,7 @@ const BtnDiv = styled.div`
   float: right;
 `;
 const ContentDiv = styled.div`
-  padding: 90px 30px;
+  padding: 90px 30px 30px 30px;
 `;
 const DetailDiv = styled.div`
   display: block;
