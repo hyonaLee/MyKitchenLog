@@ -51,12 +51,12 @@ function Edit() {
     setModicontents(event.target.value);
   };
   const EditURL = (event) => {
-    setModiURL(event.target.value);
     setLoadfile(URL.createObjectURL(event.target.files[0]))
     let fileReader = new FileReader();
     fileReader.readAsDataURL(event.target.files[0])
     fileReader.onload = function (event) {
       setCurrentURL(event.target.result)
+      setModiURL(event.target.value);
   }
   };
   const Keypress = (e) => {
