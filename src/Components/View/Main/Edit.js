@@ -7,16 +7,8 @@ import useLoad from "../../Hooks/useLoad";
 // 미완성.
 // 재료부분 해쉬로 추가 기능.
 // 재료 기준으로 검색 기능 구현.
-// 사진 업로드 기능.
-// 수정버튼 눌른후 아무작업안하고 post 누르면 다 날아가는 오류.
 
 function Edit() {
-
-      // 이미지 업로드
-const [loadfile, setLoadfile] = useState();
-const [currentURL, setCurrentURL] = useState();
-
-
 
 // (GET) serer로부터 data 불러오기
   const blogData = useLoad()
@@ -39,6 +31,8 @@ const [currentURL, setCurrentURL] = useState();
   const editTime = `${cYear}년 ${cMonth}월 ${cDate}일 ${cHour}시 ${cMin}분`;
 
 // Post 수정하기
+  const [loadfile, setLoadfile] = useState();
+  const [currentURL, setCurrentURL] = useState();
   const currentTitle = postFilter.length !== 0 && postFilter[0].title;
   const currentTag = postFilter.length !== 0 && postFilter[0].tag;
   const currentContents = postFilter.length !== 0 && postFilter[0].contents;
@@ -46,6 +40,7 @@ const [currentURL, setCurrentURL] = useState();
   const [moditag, setModitag] = useState(currentTag);
   const [modicontents, setModicontents] = useState(currentContents);
   const [modiURL, setModiURL] = useState(currentURL);
+  const [tagList, setTagList] = useState([]);
   const EditTitle = (event) => {
     setModititle(event.target.value);
   };
@@ -64,12 +59,15 @@ const [currentURL, setCurrentURL] = useState();
       setCurrentURL(event.target.result)
   }
   };
-  console.log(modititle);
-  console.log(moditag);
-  console.log(modicontents);
-  console.log(modiURL);
+  const Keypress = (e) => {
+    if (e.key === "Enter" || e.code === "Space")
+    setTagList([moditag])
+    e.preventDefault();
+    console.log("태그리스트",tagList)
+    console.log("배열이니?",Array.isArray(tagList))
+  }
 
-// (PUT/PATCH) server로 data 수정 요청 /
+// (PUT/PATCH) server로 data 수정 요청
   const modifiyData = () => {
     axios
       .patch(`http://localhost:3001/posts/${currentid}`, {
@@ -94,20 +92,24 @@ const [currentURL, setCurrentURL] = useState();
         <Title name="title" onChange={EditTitle}>
           {currentTitle}
         </Title>
-        <Tag
-        name="tag" onChange={EditTag}>
-          {currentTag}
-        </Tag> 
+        <TagDiv>
+          <Tag
+          name="tag" onChange={EditTag} onKeyPress={Keypress}>
+            {currentTag}
+          </Tag> 
+          {tagList.length !== 0 && (<h2>
+            #{tagList}</h2>)}
+        </TagDiv>
         <Contents name="contents" onChange={EditContents}>
           {currentContents}
         </Contents>
         <BtnDiv>
-      <img src={loadfile} alt="Blob URL" width="100px" />
-        <input type="file" accept="image/*" onChange={EditURL}/>
-        <Link to="/">
-          <CreateBtn onClick={modifiyData}>Post</CreateBtn>
-        </Link>
-      </BtnDiv>
+          <img src={loadfile} alt="Blob URL" width="100px" />
+          <input type="file" accept="image/*" onChange={EditURL}/>
+          <Link to="/">
+            <CreateBtn onClick={modifiyData}>Post</CreateBtn>
+          </Link>
+        </BtnDiv>
       </WriteDiv>
     )
   );
@@ -142,7 +144,7 @@ const Title = styled.textarea`
   padding: 20px;
   margin: auto;
   margin-top: 30px;
-  height: 75px;
+  height: 95px;
   border: none;
   font-size: 25px;
   background-color: ivory;
@@ -152,7 +154,7 @@ const Tag = styled.textarea`
   padding: 20px;
   margin: auto;
   margin-top: 30px;
-  height: 75px;
+  height: 35px;
   border: none;
   font-size: 25px;
   background-color: ivory;
@@ -167,6 +169,9 @@ const Contents = styled.textarea`
   border: none;
   font-size: 25px;
   background-color: ivory;
+`;
+const TagDiv = styled.div`
+  text-align: center;
 `;
 const BtnDiv = styled.div`
   text-align: right;
