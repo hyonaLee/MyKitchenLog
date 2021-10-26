@@ -1,29 +1,35 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
 function NewPost() {
+  //autofocus
+  const onfocus = useRef();
+  useEffect(() => {
+    if (onfocus.current) { 
+      onfocus.current.focus();
+    }
+  }, []);
 
-// 이미지 업로드
+  // 이미지 업로드
   const [loadfile, setLoadfile] = useState();
   const [currentfile, setCurrentfile] = useState();
 
   const Loadedfile = (e) => {
-      setLoadfile(URL.createObjectURL(e.target.files[0]))
-      let fileReader = new FileReader();
-      // e.preventDefault();
-      fileReader.readAsDataURL(e.target.files[0])
-      fileReader.onload = function (e) {
-        setCurrentfile(e.target.result)
-        // console.log(e.target.result)
-      }
-      // console.log(e.target.files[0])
-      // console.log(e.target.value)
-    }
+    setLoadfile(URL.createObjectURL(e.target.files[0]));
+    let fileReader = new FileReader();
+    // e.preventDefault();
+    fileReader.readAsDataURL(e.target.files[0]);
+    fileReader.onload = function (e) {
+      setCurrentfile(e.target.result);
+      // console.log(e.target.result)
+    };
+    // console.log(e.target.files[0])
+    // console.log(e.target.value)
+  };
 
-
-// 날짜정보얻기
+  // 날짜정보얻기
   const currentDate = new Date();
   const cYear = currentDate.getFullYear();
   const cMonth = currentDate.getMonth() + 1;
@@ -32,12 +38,12 @@ function NewPost() {
   const cMin = currentDate.getMinutes();
   const editTime = `${cYear}년 ${cMonth}월 ${cDate}일 ${cHour}시 ${cMin}분`;
 
-// user가 작성한 input 받아오기
+  // user가 작성한 input 받아오기
   const [inputs, setInputs] = useState({
-      title: "",
-      tag: "",
-      contents: "",
-    });
+    title: "",
+    tag: "",
+    contents: "",
+  });
   const { title, contents, tag } = inputs;
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -46,13 +52,11 @@ function NewPost() {
       [name]: value,
     });
   };
-  console.log(inputs)
+  console.log(inputs);
 
-  const loadTag = (e) => {
+  const loadTag = (e) => {};
 
-  }
-
-// (POST) serer로 data 생성 요청
+  // (POST) serer로 data 생성 요청
   const postData = () => {
     axios
       .post("http://localhost:3001/posts", {
@@ -70,7 +74,7 @@ function NewPost() {
       });
   };
 
-    return (
+  return (
     <WriteDiv>
       <Title
         name="title"
@@ -78,6 +82,7 @@ function NewPost() {
         type="text"
         placeholder="요리명"
         onChange={onChange}
+        ref={onfocus}
       />
       <Tag
         name="tag"
@@ -94,14 +99,14 @@ function NewPost() {
         onChange={onChange}
       />
       <BtnDiv>
-      <img src={loadfile} alt="Blob URL" width="100px" />
-        <input type="file" accept="image/*" onChange={Loadedfile}/>
+        <img src={loadfile} alt="Blob URL" width="100px" />
+        <input type="file" accept="image/*" onChange={Loadedfile} />
         <Link to="/">
           <CreateBtn onClick={postData}>Post</CreateBtn>
         </Link>
       </BtnDiv>
     </WriteDiv>
-    )
+  );
 }
 
 const WriteDiv = styled.div`
@@ -163,4 +168,4 @@ const BtnDiv = styled.div`
   text-align: right;
 `;
 
-export default NewPost
+export default NewPost;
