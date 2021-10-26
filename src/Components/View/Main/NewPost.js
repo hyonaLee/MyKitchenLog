@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 
 function NewPost() {
+
+
   //autofocus
   const onfocus = useRef();
   useEffect(() => {
@@ -54,7 +56,13 @@ function NewPost() {
   };
   console.log(inputs);
 
-  const loadTag = (e) => {};
+  // 해시태그 기능
+  const [tagList, setTagList] = useState([]);
+  const Keypress = (e) => {
+    if (e.key === "Enter" || e.code === "Space")
+    setTagList((tagList) => [...tagList, inputs.tag])
+    console.log("태그리스트",tagList)
+  }
 
   // (POST) serer로 data 생성 요청
   const postData = () => {
@@ -62,7 +70,7 @@ function NewPost() {
       .post("http://localhost:3001/posts", {
         date: editTime,
         title: title,
-        tag: tag,
+        tag: tagList,
         contents: contents,
         imgURL: currentfile,
       })
@@ -84,14 +92,23 @@ function NewPost() {
         onChange={onChange}
         ref={onfocus}
       />
-      <Tag
-        name="tag"
-        value={tag}
-        type="text"
-        placeholder="주재료"
-        onKeyUp={loadTag}
-        onChange={onChange}
-      />
+      <TagDiv>
+        <Tag
+          name="tag"
+          value={tag}
+          type="text"
+          placeholder="주재료"
+          onChange={onChange}
+          onKeyPress={Keypress}
+        />
+        <TagListDiv>
+          {tagList.length !== 0 && (
+            tagList.map((v,i) => {
+              return <span className="hash">#{tagList[i]} </span>
+            })
+          )}
+        </TagListDiv>
+      </TagDiv>
       <Contents
         name="contents"
         value={contents}
@@ -163,6 +180,13 @@ const Contents = styled.textarea`
   border: none;
   font-size: 25px;
   background-color: ivory;
+`;
+const TagDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const TagListDiv = styled.div`
+text-align: center;
 `;
 const BtnDiv = styled.div`
   text-align: right;

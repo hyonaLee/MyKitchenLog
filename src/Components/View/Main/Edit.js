@@ -59,12 +59,13 @@ function Edit() {
       setModiURL(event.target.value);
   }
   };
+
+// 해시태그 기능
   const Keypress = (e) => {
     if (e.key === "Enter" || e.code === "Space")
-    setTagList([moditag])
-    e.preventDefault();
+    setTagList((tagList) => [...tagList, moditag])
+    setModitag('')
     console.log("태그리스트",tagList)
-    console.log("배열이니?",Array.isArray(tagList))
   }
 
 // (PUT/PATCH) server로 data 수정 요청
@@ -73,7 +74,7 @@ function Edit() {
       .patch(`http://localhost:3001/posts/${currentid}`, {
         date: editTime,
         title: modititle === false ? currentTitle : modititle,
-        tag: moditag === false ? currentTag : moditag,
+        tag: tagList.length === 0 ? currentTag : tagList,
         contents: modicontents === false ? currentContents : modicontents,
         imgURL: modiURL === undefined ? currentURL : modiURL,
       })
@@ -95,10 +96,15 @@ function Edit() {
         <TagDiv>
           <Tag
           name="tag" onChange={EditTag} onKeyPress={Keypress}>
-            {currentTag}
-          </Tag> 
-          {tagList.length !== 0 && (<h2>
-            #{tagList}</h2>)}
+            {moditag === false ? currentTag : moditag}
+          </Tag>
+          <TagListDiv>
+            {tagList.length !== 0 && (
+              tagList.map((v,i) => {
+                return <span className="hash">#{tagList[i]} </span>
+              })
+            )}
+          </TagListDiv>
         </TagDiv>
         <Contents name="contents" onChange={EditContents}>
           {currentContents}
@@ -171,7 +177,11 @@ const Contents = styled.textarea`
   background-color: ivory;
 `;
 const TagDiv = styled.div`
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+`;
+const TagListDiv = styled.div`
+text-align: center;
 `;
 const BtnDiv = styled.div`
   text-align: right;
