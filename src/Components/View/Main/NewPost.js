@@ -1,35 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
 import styled from "styled-components";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import store from "../../../Store/store";
+import { observer } from "mobx-react";
 
 function NewPost() {
-
-
   //autofocus
   const onfocus = useRef();
   useEffect(() => {
-    if (onfocus.current) { 
+    if (onfocus.current) {
       onfocus.current.focus();
     }
   }, []);
-
-  // 이미지 업로드
-  const [loadfile, setLoadfile] = useState();
-  const [currentfile, setCurrentfile] = useState();
-
-  const Loadedfile = (e) => {
-    setLoadfile(URL.createObjectURL(e.target.files[0]));
-    let fileReader = new FileReader();
-    // e.preventDefault();
-    fileReader.readAsDataURL(e.target.files[0]);
-    fileReader.onload = function (e) {
-      setCurrentfile(e.target.result);
-      // console.log(e.target.result)
-    };
-    // console.log(e.target.files[0])
-    // console.log(e.target.value)
-  };
 
   // 날짜정보얻기
   const currentDate = new Date();
@@ -54,32 +36,50 @@ function NewPost() {
       [name]: value,
     });
   };
-  console.log(inputs);
+  // console.log(inputs);
+
+  // 이미지 업로드
+  const [loadfile, setLoadfile] = useState();
+  const [currentfile, setCurrentfile] = useState();
+  const Loadedfile = (e) => {
+    setLoadfile(URL.createObjectURL(e.target.files[0]));
+    let fileReader = new FileReader();
+    // e.preventDefault();
+    fileReader.readAsDataURL(e.target.files[0]);
+    fileReader.onload = function (e) {
+      setCurrentfile(e.target.result);
+      // console.log(e.target.result)
+    };
+    // console.log(e.target.files[0])
+    // console.log(e.target.value)
+  };
 
   // 해시태그 기능
   const [tagList, setTagList] = useState([]);
   const Keypress = (e) => {
-    if (e.key === "Enter" || e.code === "Space")
-    setTagList((tagList) => [...tagList, inputs.tag])
-    console.log("태그리스트",tagList)
-  }
+    if (e.key === "Enter" || e.code === "Space") {
+      setTagList((tagList) => [...tagList, inputs.tag]);
+      setInputs({
+        ...inputs,
+        tag: "",
+      });
+      e.preventDefault();
+    }
+
+    console.log("인풋", inputs.tag);
+    console.log("태그리스트", tagList);
+  };
 
   // (POST) serer로 data 생성 요청
   const postData = () => {
-    axios
-      .post("http://localhost:3001/posts", {
-        date: editTime,
-        title: title,
-        tag: tagList,
-        contents: contents,
-        imgURL: currentfile,
-      })
-      .then(function (response) {
-        console.log("post성공", response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    const mappingData = {
+      date: editTime,
+      title: title,
+      tag: tagList,
+      contents: contents,
+      imgURL: currentfile,
+    };
+    store.AddData(mappingData);
   };
 
   return (
@@ -102,11 +102,10 @@ function NewPost() {
           onKeyPress={Keypress}
         />
         <TagListDiv>
-          {tagList.length !== 0 && (
-            tagList.map((v,i) => {
-              return <span className="hash">#{tagList[i]} </span>
-            })
-          )}
+          {tagList.length !== 0 &&
+            tagList.map((v, i) => {
+              return <span className="hash">#{tagList[i]} </span>;
+            })}
         </TagListDiv>
       </TagDiv>
       <Contents
@@ -155,7 +154,7 @@ const Title = styled.textarea`
   padding: 20px;
   margin: auto;
   margin-top: 30px;
-  height: 75px;
+  height: 80px;
   border: none;
   font-size: 25px;
   background-color: ivory;
@@ -165,7 +164,7 @@ const Tag = styled.textarea`
   padding: 20px;
   margin: auto;
   margin-top: 30px;
-  height: 75px;
+  height: 35px;
   border: none;
   font-size: 25px;
   background-color: ivory;
@@ -186,10 +185,10 @@ const TagDiv = styled.div`
   flex-direction: column;
 `;
 const TagListDiv = styled.div`
-text-align: center;
+  text-align: center;
 `;
 const BtnDiv = styled.div`
   text-align: right;
 `;
 
-export default NewPost;
+export default observer(NewPost);

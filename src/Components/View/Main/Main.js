@@ -1,25 +1,40 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import "../../../App.css";
-import useLoad from "../../Hooks/useLoad";
+import SearchBtn from "../Search/SearchBtn";
+import { observer } from "mobx-react";
+import store from "../../../Store/store";
+import { useEffect } from "react";
 
 const Main = () => {
-// (GET) serer로부터 data 불러오기
-  const blogData = useLoad()
+  // (GET) serer로부터 data 불러오기
+  useEffect(() => {
+    store.LoadData();
+  }, []);
+  // console.log(store.getBlogData)
 
   return (
     <MainDiv>
-      {blogData.map((blogData) => {
-        return (
-          <Link to={`Detail/${blogData.id}`}>
-            <div className="list" key={blogData.id}>
-             <img src={blogData.imgURL} alt="Blob URL" height="200px" />
-              <h2 className="listfont">My Kitchen 레시피 - {blogData.title}</h2>
-              <h3 className="tag"> {"#" + blogData.tag} </h3>
-            </div>
-          </Link>
-        );
-      })}
+      <SearchBtn />
+      {store.getBlogData !== undefined &&
+        store.getBlogData.map((blogData) => {
+          return (
+            <Link to={`Detail/${blogData.id}`}>
+              <div className="list" key={blogData.id}>
+                <img src={blogData.imgURL} alt="Blob URL" height="200px" />
+                <h2 className="listfont">
+                  My Kitchen 레시피 - {blogData.title}
+                </h2>
+                <h3 className="tag">
+                  {blogData.tag.length !== 0 &&
+                    blogData.tag.map((v) => {
+                      return ` #${v}`;
+                    })}
+                </h3>
+              </div>
+            </Link>
+          );
+        })}
     </MainDiv>
   );
 };
@@ -49,4 +64,4 @@ const MainDiv = styled.div`
   }
 `;
 
-export default Main;
+export default observer(Main);

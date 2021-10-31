@@ -11,7 +11,7 @@ const NewOpenBtn = styled.button`
 border-radius: 14px;
 border: none;
 background-color: orange;
-color: white;
+color: ivory;
 height: 30px;
 width: 65px;
 font-size: 24px;
