@@ -4,20 +4,45 @@ import "../../../App.css";
 import SearchBtn from "../Search/SearchBtn";
 import { observer } from "mobx-react";
 import store from "../../../Store/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Main = () => {
+
   // (GET) serer로부터 data 불러오기
   useEffect(() => {
     store.LoadData();
   }, []);
   // console.log(store.getBlogData)
 
+  // 검색어 매칭
+  const [searchword , setSearchword] = useState();
+  const result = store.getBlogData.filter(function (v) {
+    return searchword !== undefined && (v.tag.includes(searchword))
+  });
+
   return (
     <MainDiv>
-      <SearchBtn />
-      {store.getBlogData !== undefined &&
-        store.getBlogData.map((blogData) => {
+      <SearchBtn searchword={searchword} setSearchword={setSearchword} />
+        {searchword !== undefined ?
+         result.map((blogData) => {
+            return (
+              <Link to={`Detail/${blogData.id}`}>
+                <div className="list" key={blogData.id}>
+                  <img src={blogData.imgURL} alt="Blob URL" height="200px" />
+                  <h2 className="listfont">
+                    My Kitchen 레시피 - {blogData.title}
+                  </h2>
+                  <h3 className="tag">
+                    {blogData.tag.length !== 0 &&
+                      blogData.tag.map((v) => {
+                        return ` #${v}`;
+                      })}
+                  </h3>
+                </div>
+              </Link>
+            );
+          })
+        : store.getBlogData.map((blogData) => {
           return (
             <Link to={`Detail/${blogData.id}`}>
               <div className="list" key={blogData.id}>

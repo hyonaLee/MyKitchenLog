@@ -92,7 +92,7 @@ function NewPost() {
         onChange={onChange}
         ref={onfocus}
       />
-      <TagDiv>
+      <TagDiv>f
         <Tag
           name="tag"
           value={tag}

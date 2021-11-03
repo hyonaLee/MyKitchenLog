@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { FaSistrix } from "react-icons/fa";
 
-export default function SearchBtn() {
+export default function SearchBtn({searchword,setSearchword}) {
+
+  // 검색어 받아오기
+  const GetValue = (e) => {
+    e.preventDefault();
+    setSearchword(e.target.value)
+  }
   // modal 상태관리
   const [modal, changeModal] = useState(false);
   function Modal() {
@@ -17,7 +23,7 @@ export default function SearchBtn() {
             }}
           />
           <p>해시태그로 검색</p>
-          <SearchBox type="search" placeholder="검색"></SearchBox>
+          <SearchBox type="search" placeholder="검색" onBlur={GetValue}></SearchBox>
           <GoSearchBtn
             type="button"
             value="검색"
@@ -54,7 +60,6 @@ const SearchBox = styled.input`
   font-size: 25px;
   background-color: ivory;
 `;
-
 const Btn = styled.button`
   border: none;
   border-radius: 50%;
