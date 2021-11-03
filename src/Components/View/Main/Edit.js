@@ -4,9 +4,6 @@ import React, { useState, useEffect } from "react";
 import store from "../../../Store/store";
 import { observer } from "mobx-react";
 
-// 미완성.
-// 재료(태그) 기준으로 검색 기능 구현.
-
 function Edit() {
   // (GET) serer로부터 data 불러오기
   useEffect(() => {

@@ -6,6 +6,9 @@ import { observer } from "mobx-react";
 import store from "../../../Store/store";
 import { useEffect, useState } from "react";
 
+// 검색 기능 onBlur로 구현하여 검색 버튼 두번 눌러야 하는 문제. 수정 필요.
+// 수정버튼 클릭 시, 태그 2개 이상인 게시물은 업로드 안되는 문제. 수정 필요.
+
 const Main = () => {
 
   // (GET) serer로부터 data 불러오기
