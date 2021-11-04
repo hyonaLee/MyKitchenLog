@@ -1,4 +1,3 @@
-import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import store from "../../../Store/store";
@@ -85,100 +84,34 @@ function Edit() {
   return (
     postFilter.length !== 0 && (
       // 수정
-      <WriteDiv>
-        <Title name="title" onChange={EditTitle}>
+      <div className="EditDiv">
+        <textarea className="EditTitle" name="title" onChange={EditTitle}>
           {currentTitle}
-        </Title>
-        <TagDiv>
-          <Tag name="tag" onChange={EditTag} onKeyPress={Keypress}>
+        </textarea>
+        <div className="EditTagDiv">
+          <textarea className="EditTag" name="tag" onChange={EditTag} onKeyPress={Keypress}>
             {moditag === false ? currentTag : moditag}
-          </Tag>
-          <TagListDiv>
+          </textarea>
+          <div className="EditTagShowDiv">
             {tagList.length !== 0 &&
               tagList.map((v, i) => {
                 return <span className="hash">#{tagList[i]} </span>;
               })}
-          </TagListDiv>
-        </TagDiv>
-        <Contents name="contents" onChange={EditContents}>
+          </div>
+        </div>
+        <textarea className="EditContents" name="contents" onChange={EditContents}>
           {currentContents}
-        </Contents>
-        <BtnDiv>
-          <img src={loadfile} alt="Blob URL" width="100px" />
+        </textarea>
+        <div className="EditBtnDiv">
+          <img src={loadfile} alt="Img URL" width="100px" />
           <input type="file" accept="image/*" onChange={EditURL} />
           <Link to="/">
-            <CreateBtn onClick={modifiyData}>Post</CreateBtn>
+            <button className="EditBtn" onClick={modifiyData}>Post</button>
           </Link>
-        </BtnDiv>
-      </WriteDiv>
+        </div>
+      </div>
     )
   );
 }
-
-const WriteDiv = styled.div`
-  width: 100%;
-  height: 640px;
-  position: relative;
-  top: 80px;
-  background-color: ivory;
-  color: black;
-  display: flex;
-  flex-direction: column;
-`;
-const CreateBtn = styled.button`
-  border-radius: 14px;
-  background-color: orange;
-  color: white;
-  border: none;
-  height: 30px;
-  width: 65px;
-  font-size: 24px;
-  line-height: 20px;
-  padding: 0px 10px 0px 10px;
-  margin-right: 50px;
-  margin-bottom: 10px;
-  cursor: pointer;
-`;
-const Title = styled.textarea`
-  width: 80%;
-  padding: 20px;
-  margin: auto;
-  margin-top: 30px;
-  height: 95px;
-  border: none;
-  font-size: 25px;
-  background-color: ivory;
-`;
-const Tag = styled.textarea`
-  width: 80%;
-  padding: 20px;
-  margin: auto;
-  margin-top: 30px;
-  height: 35px;
-  border: none;
-  font-size: 25px;
-  background-color: ivory;
-`;
-const Contents = styled.textarea`
-  width: 80%;
-  padding: 20px;
-  margin: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  height: 600px;
-  border: none;
-  font-size: 25px;
-  background-color: ivory;
-`;
-const TagDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const TagListDiv = styled.div`
-  text-align: center;
-`;
-const BtnDiv = styled.div`
-  text-align: right;
-`;
 
 export default observer(Edit);

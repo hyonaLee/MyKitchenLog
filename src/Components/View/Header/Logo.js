@@ -1,23 +1,11 @@
 import React from 'react';
-import styled from 'styled-components';
 
 function Logo() {
     return (
-        <LogoDiv>
-            <LogoFont>My Kitchen Blog</LogoFont>
-        </LogoDiv>
+        <div className="LogoDiv">
+            <h2 className="LogoH2">My Kitchen Blog</h2>
+        </div>
     );
 }
-
-const LogoFont = styled.h1`
-font-size: 32px;
-@media screen and (max-width: 300px) {
-    font-size: 20px;
-   }
-`;
-const LogoDiv = styled.div`
-display: flex;
-margin-left: 50px;
-`;
 
 export default Logo;

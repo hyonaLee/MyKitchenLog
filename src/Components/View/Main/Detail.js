@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
 import { Link, useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import store from "../../../Store/store";
@@ -29,167 +28,57 @@ function Detail() {
 
   function Modal() {
     return (
-      <BackDiv>
-        <ModalDiv>
+      <div className="ModalBackDiv">
+        <div className="ModalDiv">
           <p>삭제하시겠습니까?</p>
-          <CxlBtn
+          <button className="CxlBtn"
             onClick={() => {
               changeModal(!modal);
             }}
           >
             취소
-          </CxlBtn>
+          </button>
           <Link to="/">
-            <DelBtn onClick={DelPosts}>삭제</DelBtn>
+            <button className="DelBtn" onClick={DelPosts}>삭제</button>
           </Link>
-        </ModalDiv>
-      </BackDiv>
+        </div>
+      </div>
     );
   }
 
   return (
     postFilter.length !== 0 && (
-      <DetailDiv>
-        <TitelFont>
-          My Kitchen 레시피 <br />-{postFilter[0].title}
-        </TitelFont>
-        <DateFont>{postFilter[0].date}</DateFont>
-        <DateFont>
+      <div className="DetailDiv">
+        {modal === true ? <Modal /> : null}
+        <h1 className="DetailTitleh1">
+          My Kitchen 레시피 - {postFilter[0].title}
+        </h1>
+        <div className="DetailBtnDiv">
+          <Link to={`/Edit/${currentid}`}>
+            <button className="DetailBtn">수정</button>
+          </Link>|
+            <button className="DetailBtn"
+              onClick={() => {
+                changeModal(!modal);
+              }}
+            >
+              삭제
+            </button>
+        </div>
+        <h4 className="DetailDateh4">{postFilter[0].date}</h4>
+
+        <h3 className="DetailTagh3">
           {postFilter[0].tag.length !== 0 &&
             postFilter[0].tag.map((v) => {
               return ` #${v}`;
             })}
-        </DateFont>
-        <BtnDiv>
-          <Link to={`/Edit/${currentid}`}>
-            <EditBtn>수정</EditBtn>
-          </Link>
-          <EditBtn
-            onClick={() => {
-              changeModal(!modal);
-            }}
-          >
-            삭제
-          </EditBtn>
-        </BtnDiv>
-        <ContentDiv>
+        </h3>
+        <div className="DetailContentsDiv">
           <img src={postFilter[0].imgURL} alt="img URL" width="100%" />
-          <ContentFont>{postFilter[0].contents}</ContentFont>
-        </ContentDiv>
-        {modal === true ? <Modal /> : null}
-      </DetailDiv>
+          <p className="DetailContentsP">{postFilter[0].contents}</p>
+        </div>
+      </div>
     )
   );
 }
-
-const TitelFont = styled.h1`
-  font-size: 60px;
-`;
-const DateFont = styled.h4`
-  float: left;
-  font-size: 24px;
-  padding-left: 30px;
-`;
-const ContentFont = styled.p`
-  white-space: pre-wrap;
-  font-size: 40px;
-  line-height: 70px;
-`;
-const BtnDiv = styled.div`
-  float: right;
-`;
-const ContentDiv = styled.div`
-  padding: 90px 30px 30px 30px;
-`;
-const DetailDiv = styled.div`
-  display: block;
-  position: relative;
-  top: 80px;
-  color: black;
-  padding: 200px 250px;
-  @media screen and (max-width: 1600px) {
-    padding: 150px 150px;
-  }
-  @media screen and (max-width: 1200px) {
-    padding: 100px 100px;
-  }
-  @media screen and (max-width: 870px) {
-    padding: 40px 70px;
-  }
-  @media screen and (max-width: 600px) {
-    padding: 30px 50px;
-  }
-`;
-const EditBtn = styled.button`
-  border-radius: 10px;
-  background-color: ivory;
-  border: none;
-  height: 25px;
-  width: 55px;
-  font-size: 16px;
-  line-height: 20px;
-  padding: 0px 10px 0px 10px;
-  margin-right: 20px;
-  :hover {
-    cursor: pointer;
-    text-decoration: underline;
-  }
-`;
-
-// Modal Style
-const BackDiv = styled.div`
-  display: block;
-  width: 100vw;
-  height: 100vh;
-  position: absolute;
-  top: -80px;
-  left: 0;
-  background-color: rgba(99, 99, 99, 0.466);
-  color: black;
-  z-index: 100;
-`;
-const ModalDiv = styled.div`
-  display: block;
-  width: 250px;
-  height: 100px;
-  position: relative;
-  top: 250px;
-  border-radius: 10px;
-  border: none;
-  background-color: rgba(255, 255, 255, 0.801);
-  color: black;
-  padding: 40px 30px 30px 30px;
-  margin: auto;
-  text-align: center;
-  z-index: 100;
-`;
-const DelBtn = styled.button`
-  border-radius: 5px;
-  border: none;
-  height: 28px;
-  width: 55px;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 30px;
-  padding: 0px 10px 0px 10px;
-  margin-right: 20px;
-  background-color: orange;
-  color: ivory;
-  cursor: pointer;
-`;
-const CxlBtn = styled.button`
-  border-radius: 5px;
-  border: 1px solid orange;
-  height: 28px;
-  width: 55px;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 30px;
-  padding: 0px 10px 0px 10px;
-  margin-right: 20px;
-  background-color: (168, 164, 164, 0.637);
-  color: orange;
-  cursor: pointer;
-`;
-
 export default observer(Detail);

@@ -1,0 +1,257 @@
+$maincolorO:orange;
+$maincolorI:ivory;
+
+$fs1:3em;
+$fs2:2em;
+$fs3:1.5em;
+$fs4:1.3em;
+$fs5:1em;
+$fs6:0.8em;
+
+@mixin Btn($color) {
+  background: none;
+  border: none;
+  font-size: $fs6;
+  color: $color;
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+@mixin ModalBack() {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(99, 99, 99, 0.466);
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+@mixin Modal() {
+  min-width: 20%;
+  min-height: 15%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 10px;
+  background-color: rgba(255, 255, 255, 0.801);
+  padding: 40px 30px 30px 30px;
+  text-align: center;
+}
+
+// ---------------------------------------------------Common Style
+
+body,
+html {
+  margin: auto;
+  box-sizing: border-box;
+  background-color: $maincolorI;
+}
+.Wrap{
+  display: flex;
+  flex-direction: column;
+}
+// ---------------------------------------------------Header Style
+.HeaderDiv {
+  width: 100%;
+  background-color: $maincolorI;
+  overflow: hidden;
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0px;
+  z-index: 10;
+  .LogoDiv{
+    .LogoH2{
+      font-size: $fs2;
+      padding-left: 15%;
+      width: 100%;
+    }
+  }
+  .NewOpenBtn{
+    border-radius: 14px;
+    border: none;
+    background-color: $maincolorO;
+    color: $maincolorI;
+    height: 30%;
+    width: 100%;
+    font-size: $fs4;
+    cursor: pointer;
+  }
+}
+// ---------------------------------------------------Main Style
+.MainDiv {
+  display: flex;
+  flex: 5;
+  .Contents{
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 3%;
+    gap: 40px;
+    background-color: $maincolorI;
+    .Mainlistdiv {
+    width: 100%;
+    height: 100%;
+    padding: 5%;
+    background-color: $maincolorO;
+    &:hover{
+    box-shadow: inset 0 0 10px $maincolorI;
+    }
+      .Mainlisth3 {
+        font-size: $fs3;
+        color: $maincolorI;
+      }
+      .Maintagh4 {
+        font-size: $fs5;
+        color: $maincolorI;
+        margin: 0;
+      }
+      .mainimg {
+        width: 250px;
+        height: 250px;
+      }
+    }
+  }
+}
+// ---------------------------------------------------Main Style
+.DetailDiv {
+  padding: 1% 5%;
+  .DetailTitleh1{
+    font-size: $fs1;
+  }
+  .DetailDateh4{
+    font-size: $fs4;
+    padding-left: 30px;
+    // float: left;
+  }
+  .DetailBtnDiv{
+    float: right;
+    margin-right: 5%;
+    .DetailBtn{
+      @include Btn($maincolorO);
+      padding: 0 15px;
+    }
+  }
+  .DetailTagh3{
+    font-size: $fs3;
+    text-align: center;
+  }
+  .DetailContentsDiv{
+    padding: 5%;
+  }
+  .DetailContentsP{
+    white-space: pre-wrap;
+    font-size: $fs3;
+    line-height: $fs1;
+    letter-spacing: -0.03em;
+  }
+}
+// ---------------------------------------------------Modal Style
+.ModalBackDiv{
+  @include ModalBack();
+  .ModalDiv{
+    @include Modal();
+    .CxlBtn{
+      @include Btn($maincolorO);
+      margin-right: 20%;
+      margin-top: 8%;
+    }
+    .CxlBtn2{
+      @include Btn($maincolorO);
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .DelBtn{
+      @include Btn(red);
+    }
+    .SearchBox{
+      width: 75%;
+      padding: 8%;
+      margin: auto;
+      border: none;
+      border-radius: 5px;
+      font-size: $fs4;
+    }
+    .GosearchBtn{
+      @include Btn($maincolorO);
+      position: absolute;
+      bottom: 40px;
+      right: 10px;
+    }
+  }
+}
+// ---------------------------------------------------Edit Style
+.EditDiv{
+  display: flex;
+  flex-direction: column;
+  .EditTitle{
+    background-color: $maincolorI;
+    width: 80%;
+    padding: 4%;
+    line-height: 4%;
+    margin: auto;
+    border: none;
+    font-size: $fs4;
+  }
+  .EditTagDiv{
+    display: flex;
+    flex-direction: column;
+    .EditTag{
+      background-color: $maincolorI;
+      width: 80%;
+      padding: 4%;
+      line-height: 4%;
+      margin: auto;
+      border: none;
+      font-size: $fs4;
+    }
+    .EditTagShowDiv{
+    text-align: center;
+    }
+  }
+  .EditContents{
+    background-color: $maincolorI;
+    width: 80%;
+    height: 300px;
+    padding: 4%;
+    line-height: 4%;
+    margin: auto;
+    margin-bottom: 4%;
+    border: none;
+    font-size: $fs4;
+  }
+  .EditBtnDiv{
+    text-align: right;
+    .EditBtn{
+      border-radius: 14px;
+      background-color: $maincolorO;
+      color: $maincolorI;
+      border: none;
+      height: 30px;
+      width: 70px;
+      font-size: $fs3;
+      cursor: pointer;
+    }
+  }
+}
+.SearchBtn{
+  border: none;
+  border-radius: 50%;
+  background-color: $maincolorI;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  position: fixed;
+  bottom:10px;
+  right: 10px;
+  font-size: $fs2;
+}

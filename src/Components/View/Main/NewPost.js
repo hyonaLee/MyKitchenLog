@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 import store from "../../../Store/store";
 import { observer } from "mobx-react";
@@ -83,8 +82,8 @@ function NewPost() {
   };
 
   return (
-    <WriteDiv>
-      <Title
+    <div className="EditDiv">
+      <textarea className="EditTitle"
         name="title"
         value={title}
         type="text"
@@ -92,8 +91,8 @@ function NewPost() {
         onChange={onChange}
         ref={onfocus}
       />
-      <TagDiv>f
-        <Tag
+      <div className="EditTagDiv">
+        <textarea className="EditTag"
           name="tag"
           value={tag}
           type="text"
@@ -101,94 +100,27 @@ function NewPost() {
           onChange={onChange}
           onKeyPress={Keypress}
         />
-        <TagListDiv>
+        <div className="EditTagShowDiv">
           {tagList.length !== 0 &&
             tagList.map((v, i) => {
               return <span className="hash">#{tagList[i]} </span>;
             })}
-        </TagListDiv>
-      </TagDiv>
-      <Contents
+        </div>
+      </div>
+      <textarea className="EditContents"
         name="contents"
         value={contents}
         placeholder="내용"
         onChange={onChange}
       />
-      <BtnDiv>
+      <div className="EditBtnDiv">
         <img src={loadfile} alt="Blob URL" width="100px" />
         <input type="file" accept="image/*" onChange={Loadedfile} />
         <Link to="/">
-          <CreateBtn onClick={postData}>Post</CreateBtn>
+          <button className="EditBtn" onClick={postData}>Post</button>
         </Link>
-      </BtnDiv>
-    </WriteDiv>
+      </div>
+    </div>
   );
 }
-
-const WriteDiv = styled.div`
-  width: 100%;
-  height: 640px;
-  position: relative;
-  top: 80px;
-  background-color: ivory;
-  color: black;
-  display: flex;
-  flex-direction: column;
-`;
-const CreateBtn = styled.button`
-  border-radius: 14px;
-  background-color: orange;
-  color: white;
-  border: none;
-  height: 30px;
-  width: 65px;
-  font-size: 24px;
-  line-height: 20px;
-  padding: 0px 10px 0px 10px;
-  margin-right: 50px;
-  margin-bottom: 10px;
-  cursor: pointer;
-`;
-const Title = styled.textarea`
-  width: 80%;
-  padding: 20px;
-  margin: auto;
-  margin-top: 30px;
-  height: 80px;
-  border: none;
-  font-size: 25px;
-  background-color: ivory;
-`;
-const Tag = styled.textarea`
-  width: 80%;
-  padding: 20px;
-  margin: auto;
-  margin-top: 30px;
-  height: 35px;
-  border: none;
-  font-size: 25px;
-  background-color: ivory;
-`;
-const Contents = styled.textarea`
-  width: 80%;
-  padding: 20px;
-  margin: auto;
-  margin-top: 30px;
-  margin-bottom: 30px;
-  height: 600px;
-  border: none;
-  font-size: 25px;
-  background-color: ivory;
-`;
-const TagDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-const TagListDiv = styled.div`
-  text-align: center;
-`;
-const BtnDiv = styled.div`
-  text-align: right;
-`;
-
 export default observer(NewPost);
