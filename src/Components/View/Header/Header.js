@@ -1,7 +1,7 @@
 import React from 'react';
 import Logo from './Logo'
-import CreateBtn from './CreateBtn'
 import { Link } from 'react-router-dom';
+import MyBtn from './MyBtn';
 
 function Header() {
     return (
@@ -9,9 +9,7 @@ function Header() {
             <Link to="/">
                 <Logo/>
             </Link>
-            <Link to="/NewPost">
-                <CreateBtn/>
-            </Link>
+            <MyBtn />
         </div>
     );
 }

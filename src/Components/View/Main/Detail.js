@@ -28,7 +28,9 @@ function Detail() {
 
   function Modal() {
     return (
-      <div className="ModalBackDiv">
+      <div className="ModalBackDiv" onClick={() => {
+        changeModal(!modal);
+      }}>
         <div className="ModalDiv">
           <p>삭제하시겠습니까?</p>
           <button className="CxlBtn"
@@ -56,7 +58,7 @@ function Detail() {
         <div className="DetailBtnDiv">
           <Link to={`/Edit/${currentid}`}>
             <button className="DetailBtn">수정</button>
-          </Link>|
+          </Link>
             <button className="DetailBtn"
               onClick={() => {
                 changeModal(!modal);

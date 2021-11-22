@@ -1,14 +1,14 @@
 import { Link } from "react-router-dom";
 import "../../../App.css";
-import SearchBtn from "../Search/SearchBtn";
 import { observer } from "mobx-react";
 import store from "../../../Store/store";
 import { useEffect, useState } from "react";
+import Search from "./Search";
 
 // 검색 기능 onBlur로 구현하여 검색 버튼 두번 눌러야 하는 문제. 수정 필요.
 // 수정버튼 클릭 시, 태그 2개 이상인 게시물은 업로드 안되는 문제. 수정 필요.
 
-const Main = () => {
+const Main = ({searchstatus, SetSearchstatus}) => {
 
   // (GET) serer로부터 data 불러오기
   useEffect(() => {
@@ -25,7 +25,7 @@ const Main = () => {
   return (
     <div className="MainDiv">
       <div className="Contents">
-      <SearchBtn searchword={searchword} setSearchword={setSearchword} />
+      {searchstatus === true ? <Search searchword={searchword} setSearchword={setSearchword} /> : null}
         {searchword !== undefined ?
          result.map((blogData) => {
           return (
@@ -33,7 +33,7 @@ const Main = () => {
               <div className="Mainlistdiv" key={blogData.id}>
                 <img className="mainimg" src={blogData.imgURL} alt="img"/>
                 <h3 className="Mainlisth3">
-                  My Kitchen 레시피<br/> - {blogData.title}
+                  {blogData.title}
                 </h3>
                 <h4 className="Maintagh4">
                   {blogData.tag.length !== 0 &&
@@ -51,7 +51,7 @@ const Main = () => {
               <div className="Mainlistdiv" key={blogData.id}>
                 <img className="mainimg" src={blogData.imgURL} alt="img"/>
                 <h3 className="Mainlisth3">
-                  My Kitchen 레시피<br/> - {blogData.title}
+                  {blogData.title}
                 </h3>
                 <h4 className="Maintagh4">
                   {blogData.tag.length !== 0 &&
