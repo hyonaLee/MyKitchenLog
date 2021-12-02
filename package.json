@@ -7,10 +7,15 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.22.0",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
     "fontawesome": "^5.6.3",
     "install": "^0.13.0",
     "mobx": "^6.3.5",
     "mobx-react": "^7.2.1",
+    "mongoose": "^6.0.13",
+    "nodemon": "^2.0.15",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
@@ -20,9 +25,11 @@
   },
   "scripts": {
     "start": "concurrently \"react-scripts start\" \"json-server --watch data.json --port 3001\"",
+    "backend": "nodemon Server/index.js",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "concurrently \"npm run backend\" \"npm run start\""
   },
   "eslintConfig": {
     "extends": [

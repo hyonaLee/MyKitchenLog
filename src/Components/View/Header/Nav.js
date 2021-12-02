@@ -13,7 +13,7 @@ export default function Nav({ searchstatus, SetSearchstatus }) {
                     <Link to="/NewPost">
                     <li className="NavHome"><FaPenNib className="icon" /><br/>New</li>
                     </Link>
-                    <Link to="/">
+                    <Link to="/Main">
                     <li className="NavSearch"
                     onClick={() => {SetSearchstatus(!searchstatus)}}
                     >

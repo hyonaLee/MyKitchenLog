@@ -1,5 +1,5 @@
 
-$maincolorO: orange;
+$maincolorO: #F9C15C;
 $maincolorI: ivory;
 
 $fs1: 3em;
@@ -58,7 +58,7 @@ html {
   height: 85vh;
   border-radius: 50px;
   background-color: white;
-  margin-top: 3%;
+  margin-top: 2%;
   padding-bottom: 3%;
   box-shadow: 3px 7px 5px 9px rgba(0, 0, 0, 0.25);
 }
@@ -66,7 +66,113 @@ ul,
 li {
   list-style: none;
 }
-
+form{
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+// ---------------------------------------------------Home Style
+.HomeDiv{
+  width: 85vw;
+  height: 85vh;
+  border-radius: 50px;
+  margin-top: 3%;
+  padding-top: 5%;
+  background-image: url(../src/BackgroundImage.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  .HomeH1{
+    margin-top: 100px;
+  }
+  .JoinBtn{
+    margin-top: 50px;
+  }
+}
+.HomeH1{
+  font-size: $fs1;
+  margin-top: 50px;
+  margin-bottom: 0;
+}
+.JoinBtn{
+  margin: 0 auto;
+  margin-top: 30px;
+  background: orange;
+  border: none;
+  border-radius: 50px;
+  height: 80px;
+  width: 350px;
+  font-size: 40px;
+  color: white;
+  cursor: pointer;
+}
+.LoginBtn{
+  margin: 0 auto;
+  background: white;
+  border: none;
+  border-radius: 50px;
+  height: 80px;
+  width: 350px;
+  font-size: 40px;
+  color: black;
+  margin-top: 50px;
+  cursor: pointer;
+}
+.GoJoinBtn{
+  @include Btn(white);
+}
+.RegisterDiv{
+    width: 85vw;
+    height: 85vh;
+    border-radius: 50px;
+    margin-top: 3%;
+    padding-top: 5%;
+    background-image: url(../src/BackgroundImage.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    input{
+      margin-top: 30px;
+      border: none;
+      border-radius: 50px;
+      height: 80px;
+      width: 350px;
+      font-size: 30px;
+      padding-left: 30px;
+      box-sizing: border-box;
+    }
+}
+.LoginDiv{
+  width: 85vw;
+  height: 85vh;
+  border-radius: 50px;
+  margin-top: 3%;
+  padding-top: 5%;
+  background-image: url(../src/BackgroundImage.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  input{
+    margin-top: 30px;
+    border: none;
+    border-radius: 50px;
+    height: 80px;
+    width: 350px;
+    font-size: 30px;
+    padding-left: 30px;
+    box-sizing: border-box;
+  }
+}
 // ---------------------------------------------------Header Style
 .HeaderDiv {
   width: 100%;
@@ -136,36 +242,39 @@ li {
 // ---------------------------------------------------Main Style
 .MainDiv {
   display: inline-block;
-  width: 84%;
-  height: 70vh;
+  width: 100%;
+  height: 90vh;
   position: absolute;
-  top: 15%;
-  left: 15%;
-  overflow-y: scroll;
-
-  &::-webkit-scrollbar{ /* 스크롤바 넓이 */
-    width: 10px;
-  }
-  &::-webkit-scrollbar-track{ /* 스크롤바 트랙 */
-    background-color: orange;
-    border-radius: 50px;
-  }
-  &::-webkit-scrollbar-thumb{ /* 스크롤바 */
-    background-color: rgb(255, 115, 0);
-    border-radius: 50px;
-  }
+  
   .Contents {
     margin: auto;
+    position: absolute;
+    top: 15%;
+    left: 12%;
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
     padding: 3%;
-    height: 65vh;
+    width: 69vw;
+    height: 63vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar{ /* 스크롤바 넓이 */
+      width: 10px;
+    }
+    &::-webkit-scrollbar-track{ /* 스크롤바 트랙 */
+      background-color: $maincolorO;
+      border-radius: 50px;
+    }
+    &::-webkit-scrollbar-thumb{ /* 스크롤바 */
+      background-color: orange;
+      border-radius: 50px;
+    }
 
     .Mainlistdiv {
       width: 250px;
       height: 350px;
-      background-color: orange;
+      background-color: $maincolorO;
       box-shadow: 3px 4px 2px #6c4806;
       border-radius: 20px;
       margin-bottom: 20%;
@@ -215,7 +324,7 @@ li {
     width: 10px;
   }
   &::-webkit-scrollbar-track{ /* 스크롤바 트랙 */
-    background-color: orange;
+    background-color: $maincolorO;
     border-radius: 50px;
   }
   &::-webkit-scrollbar-thumb{ /* 스크롤바 */
@@ -281,7 +390,7 @@ li {
       width: 400px;
       padding: 5%;
       margin: 20px 150px 50px 150px;
-      border: 2px solid orange;
+      border: 2px solid $maincolorO;
       border-radius: 15px;
       font-size: $fs3;
       font-weight: bold;
