@@ -1,12 +1,15 @@
-import React from 'react';
+import React from "react";
 
-function MyBtn() {
+function MyBtn({MyPageStatus, setMyPageStatus}) {
     return (
-        <div>
+        <div className="MyBtnDiv"
+            onClick={() => {
+            setMyPageStatus(!MyPageStatus);
+        }}>
             <span className="MyImg"></span>
             <span className="MyBtn">Nickname</span>
         </div>
-    );
+    )
 }
 
 export default MyBtn;

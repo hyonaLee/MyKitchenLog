@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import store from "../../../Store/store";
+import Header from "../Header/Header";
 
 function Detail() {
   // (GET) serer로부터 data 불러오기
@@ -40,7 +41,7 @@ function Detail() {
           >
             취소
           </button>
-          <Link to="/">
+          <Link to="/Main">
             <button className="DelBtn" onClick={DelPosts}>삭제</button>
           </Link>
         </div>
@@ -50,36 +51,39 @@ function Detail() {
 
   return (
     postFilter.length !== 0 && (
-      <div className="DetailDiv">
-        {modal === true ? <Modal /> : null}
-        <h1 className="DetailTitleh1">
-          My Kitchen 레시피 - {postFilter[0].title}
-        </h1>
-        <div className="DetailBtnDiv">
-          <Link to={`/Edit/${currentid}`}>
-            <button className="DetailBtn">수정</button>
-          </Link>
-            <button className="DetailBtn"
-              onClick={() => {
-                changeModal(!modal);
-              }}
-            >
-              삭제
-            </button>
-        </div>
-        <h4 className="DetailDateh4">{postFilter[0].date}</h4>
+      <>
+        <Header/>
+        <div className="DetailDiv">
+          {modal === true ? <Modal /> : null}
+          <h1 className="DetailTitleh1">
+            My Kitchen 레시피 - {postFilter[0].title}
+          </h1>
+          <div className="DetailBtnDiv">
+            <Link to={`/Edit/${currentid}`}>
+              <button className="DetailBtn">수정</button>
+            </Link>
+              <button className="DetailBtn"
+                onClick={() => {
+                  changeModal(!modal);
+                }}
+              >
+                삭제
+              </button>
+          </div>
+          <h4 className="DetailDateh4">{postFilter[0].date}</h4>
 
-        <h3 className="DetailTagh3">
-          {postFilter[0].tag.length !== 0 &&
-            postFilter[0].tag.map((v) => {
-              return ` #${v}`;
-            })}
-        </h3>
-        <div className="DetailContentsDiv">
-          <img src={postFilter[0].imgURL} alt="img URL" width="100%" />
-          <p className="DetailContentsP">{postFilter[0].contents}</p>
+          <h3 className="DetailTagh3">
+            {postFilter[0].tag.length !== 0 &&
+              postFilter[0].tag.map((v) => {
+                return ` #${v}`;
+              })}
+          </h3>
+          <div className="DetailContentsDiv">
+            <img src={postFilter[0].imgURL} alt="img URL" width="100%" />
+            <p className="DetailContentsP">{postFilter[0].contents}</p>
+          </div>
         </div>
-      </div>
+      </>
     )
   );
 }

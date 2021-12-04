@@ -2,6 +2,8 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import store from "../../../Store/store";
 import { observer } from "mobx-react";
+import Nav from "../Header/Nav";
+import Header from "../Header/Header";
 
 function NewPost() {
   //autofocus
@@ -82,8 +84,12 @@ function NewPost() {
   };
 
   return (
+    <>
+    <Header/>
+    <Nav/>
     <div className="EditDiv">
-      <textarea className="EditTitle"
+      <textarea
+        className="EditTitle"
         name="title"
         value={title}
         type="text"
@@ -92,7 +98,8 @@ function NewPost() {
         ref={onfocus}
       />
       <div className="EditTagDiv">
-        <textarea className="EditTag"
+        <textarea
+          className="EditTag"
           name="tag"
           value={tag}
           type="text"
@@ -107,7 +114,8 @@ function NewPost() {
             })}
         </div>
       </div>
-      <textarea className="EditContents"
+      <textarea
+        className="EditContents"
         name="contents"
         value={contents}
         placeholder="내용"
@@ -116,11 +124,14 @@ function NewPost() {
       <div className="EditBtnDiv">
         <img src={loadfile} alt="Blob URL" width="100px" />
         <input type="file" accept="image/*" onChange={Loadedfile} />
-        <Link to="/">
-          <button className="EditBtn" onClick={postData}>Post</button>
+        <Link to="/Main">
+          <button className="EditBtn" onClick={postData}>
+            Post
+          </button>
         </Link>
       </div>
     </div>
+    </>
   );
 }
 export default observer(NewPost);

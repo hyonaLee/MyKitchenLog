@@ -1,5 +1,4 @@
-
-$maincolorO: #F9C15C;
+$maincolorO: #f9c15c;
 $maincolorI: ivory;
 
 $fs1: 3em;
@@ -65,15 +64,16 @@ html {
 ul,
 li {
   list-style: none;
+  padding: 0;
 }
-form{
+form {
   display: flex;
   flex-direction: column;
   margin: 0 auto;
   margin-top: 20px;
 }
 // ---------------------------------------------------Home Style
-.HomeDiv{
+.HomeDiv {
   width: 85vw;
   height: 85vh;
   border-radius: 50px;
@@ -86,19 +86,19 @@ form{
   text-align: center;
   display: flex;
   flex-direction: column;
-  .HomeH1{
+  .HomeH1 {
     margin-top: 100px;
   }
-  .JoinBtn{
+  .JoinBtn {
     margin-top: 50px;
   }
 }
-.HomeH1{
+.HomeH1 {
   font-size: $fs1;
   margin-top: 50px;
   margin-bottom: 0;
 }
-.JoinBtn{
+.JoinBtn {
   margin: 0 auto;
   margin-top: 30px;
   background: orange;
@@ -110,7 +110,7 @@ form{
   color: white;
   cursor: pointer;
 }
-.LoginBtn{
+.LoginBtn {
   margin: 0 auto;
   background: white;
   border: none;
@@ -122,34 +122,10 @@ form{
   margin-top: 50px;
   cursor: pointer;
 }
-.GoJoinBtn{
+.GoJoinBtn {
   @include Btn(white);
 }
-.RegisterDiv{
-    width: 85vw;
-    height: 85vh;
-    border-radius: 50px;
-    margin-top: 3%;
-    padding-top: 5%;
-    background-image: url(../src/BackgroundImage.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    input{
-      margin-top: 30px;
-      border: none;
-      border-radius: 50px;
-      height: 80px;
-      width: 350px;
-      font-size: 30px;
-      padding-left: 30px;
-      box-sizing: border-box;
-    }
-}
-.LoginDiv{
+.RegisterDiv {
   width: 85vw;
   height: 85vh;
   border-radius: 50px;
@@ -162,7 +138,31 @@ form{
   text-align: center;
   display: flex;
   flex-direction: column;
-  input{
+  input {
+    margin-top: 30px;
+    border: none;
+    border-radius: 50px;
+    height: 80px;
+    width: 350px;
+    font-size: 30px;
+    padding-left: 30px;
+    box-sizing: border-box;
+  }
+}
+.LoginDiv {
+  width: 85vw;
+  height: 85vh;
+  border-radius: 50px;
+  margin-top: 3%;
+  padding-top: 5%;
+  background-image: url(../src/BackgroundImage.jpg);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  input {
     margin-top: 30px;
     border: none;
     border-radius: 50px;
@@ -175,14 +175,16 @@ form{
 }
 // ---------------------------------------------------Header Style
 .HeaderDiv {
+  // z-index: 99;
   width: 100%;
+  height: 100%;
   background-color: none;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
-  position: relative;
+  align-items: flex-start;
+  position: absolute;
   border-radius: 50px 50px 0px 0px;
   top: 10px;
   .LogoDiv {
@@ -203,7 +205,7 @@ form{
     left: 88%;
     top: 40px;
   }
-  .MyImg{
+  .MyImg {
     background-image: url("https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3135/7573.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -216,13 +218,70 @@ form{
     left: 83%;
     top: 30px;
   }
+  .MyMenu {
+    position: absolute;
+    top:0px;
+    right: 0px;
+    background-color: $maincolorO;
+    width: 300px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: $fs3;
+    text-align: center;
+    border-radius: 30px;
+    z-index: 90;
+    line-height: 50px;
+  }
+}
+.InfoMyImg{
+    background-image: url("https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3135/7573.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    width: 80px;
+    height: 80px;
+    border: 2px solid black;
+    border-radius: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 30px;
+}
+.InfoMyBtn{
+  color: black;
+  height: 30%;
+  font-size: $fs4;
+  position: absolute;
+  top: 130px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.InfoMyMenu{
+  cursor: pointer;
+}
+.InfoList{
+  position: absolute;
+  top: 200px;
+  left: 50%;
+  transform: translateX(-50%);
+  line-height: 4rem;
+  li{
+    width: 300px;
+    cursor: pointer;
+    &:hover{
+      margin:auto;
+      background-color: rgba(241, 214, 163, 0.589);
+    }
+  }
 }
 // ---------------------------------------------------Nav Style
 .NavDiv {
   display: inline-block;
   width: 160px;
   text-align: center;
-  margin-top: $fs2;
+  position: absolute;
+  top: 20%;
   li {
     font-size: $fs4;
     line-height: $fs2;
@@ -233,9 +292,9 @@ form{
       border-radius: 30px;
       color: white;
     }
-    &:hover .icon{
+    &:hover .icon {
       fill: white;
-     }
+    }
   }
 }
 
@@ -245,7 +304,8 @@ form{
   width: 100%;
   height: 90vh;
   position: absolute;
-  
+  top:-10px;
+
   .Contents {
     margin: auto;
     position: absolute;
@@ -259,14 +319,17 @@ form{
     height: 63vh;
     overflow-y: scroll;
 
-    &::-webkit-scrollbar{ /* 스크롤바 넓이 */
+    &::-webkit-scrollbar {
+      /* 스크롤바 넓이 */
       width: 10px;
     }
-    &::-webkit-scrollbar-track{ /* 스크롤바 트랙 */
+    &::-webkit-scrollbar-track {
+      /* 스크롤바 트랙 */
       background-color: $maincolorO;
       border-radius: 50px;
     }
-    &::-webkit-scrollbar-thumb{ /* 스크롤바 */
+    &::-webkit-scrollbar-thumb {
+      /* 스크롤바 */
       background-color: orange;
       border-radius: 50px;
     }
@@ -296,7 +359,7 @@ form{
         line-height: $fs5;
         color: $maincolorI;
         margin: 0 0 0 20px;
-      } 
+      }
       .mainimg {
         width: 250px;
         height: 250px;
@@ -313,21 +376,24 @@ form{
   height: 70vh;
   position: absolute;
   top: 15%;
-  left: 15%;
+  left: 5%;
   display: flex;
   flex-direction: column;
   padding: 1% 5%;
   overflow-y: scroll;
   overflow-x: hidden;
 
-  &::-webkit-scrollbar{ /* 스크롤바 넓이 */
+  &::-webkit-scrollbar {
+    /* 스크롤바 넓이 */
     width: 10px;
   }
-  &::-webkit-scrollbar-track{ /* 스크롤바 트랙 */
+  &::-webkit-scrollbar-track {
+    /* 스크롤바 트랙 */
     background-color: $maincolorO;
     border-radius: 50px;
   }
-  &::-webkit-scrollbar-thumb{ /* 스크롤바 */
+  &::-webkit-scrollbar-thumb {
+    /* 스크롤바 */
     background-color: rgb(255, 115, 0);
     border-radius: 50px;
   }
@@ -370,12 +436,12 @@ form{
   }
 }
 // ---------------------------------------------------Modal Style
-.ModalBackDiv{
+.ModalBackDiv {
   @include ModalBack();
-  .ModalDiv{
+  .ModalDiv {
     @include Modal();
   }
-  .DelBtn{
+  .DelBtn {
     color: red;
   }
 }

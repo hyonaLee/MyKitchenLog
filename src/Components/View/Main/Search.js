@@ -8,8 +8,7 @@ export default function Search({ searchword, setSearchword }) {
         setSearchword(e.target.value);
       };
     // modal 상태관리
-    const [modal, changeModal] = useState(false);
-
+    const [Search, onSearch] = useState(false);
       return (
         <div className="SearchBackDiv">
           <div className="SearchDiv">
@@ -22,7 +21,7 @@ export default function Search({ searchword, setSearchword }) {
             <button
               className="GosearchBtn"
               onClick={() => {
-                changeModal(!modal);
+                onSearch(!Search);
               }}
             ><FaSearch /></button>
           </div>
