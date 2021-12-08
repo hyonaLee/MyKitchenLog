@@ -86,7 +86,6 @@ function NewPost() {
   return (
     <>
     <Header/>
-    <Nav/>
     <div className="EditDiv">
       <textarea
         className="EditTitle"

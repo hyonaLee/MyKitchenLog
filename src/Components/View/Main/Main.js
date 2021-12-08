@@ -12,7 +12,7 @@ const Main = ({searchstatus, SetSearchstatus}) => {
   return (
 
     <div className="MainDiv">
-      <Header />
+      <Header searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/>
       <Nav searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/>
       <Contents searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/>
     </div>

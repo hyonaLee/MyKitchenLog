@@ -1,6 +1,7 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
-export default function MyInfo({MyPageStatus, setMyPageStatus}) {
+export default function MyInfo({MyPageStatus, setMyPageStatus, SetSearchstatus, searchstatus}) {
     return (
         <div className="MyMenu">
             <div className="InfoMyMenu" onClick={() => {
@@ -11,7 +12,15 @@ export default function MyInfo({MyPageStatus, setMyPageStatus}) {
             </div>
             <ul className="InfoList">
                 <li>MyPage</li>
+                <Link to="/Main">
+                <li onClick={() => {SetSearchstatus(!searchstatus)||setMyPageStatus(!MyPageStatus)}} >Search</li>
+                </Link>
+                <Link to="/NewPost">
+                <li>NewPost</li>
+                </Link>
+                <Link to="/">
                 <li>Logout</li>
+                </Link>
             </ul>
         </div>
     )

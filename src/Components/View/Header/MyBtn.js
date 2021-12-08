@@ -1,4 +1,6 @@
 import React from "react";
+import { FaBars } from "react-icons/fa";
+
 
 function MyBtn({MyPageStatus, setMyPageStatus}) {
     return (
@@ -8,6 +10,7 @@ function MyBtn({MyPageStatus, setMyPageStatus}) {
         }}>
             <span className="MyImg"></span>
             <span className="MyBtn">Nickname</span>
+            <span className="MyMenuBtn"><FaBars className="menuicon" /></span>
         </div>
     )
 }

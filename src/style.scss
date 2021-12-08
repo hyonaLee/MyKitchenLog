@@ -1,5 +1,7 @@
 $maincolorO: #f9c15c;
 $maincolorI: ivory;
+$maincolorB: black;
+$maincolorS: rgba(255, 165, 0, 0.5);
 
 $fs1: 3em;
 $fs2: 2em;
@@ -8,7 +10,7 @@ $fs4: 1.3em;
 $fs5: 1em;
 $fs6: 0.8em;
 
-@mixin Btn($color) {
+@mixin SmallBtn($color) {
   background: none;
   border: none;
   font-size: $fs6;
@@ -17,6 +19,18 @@ $fs6: 0.8em;
     cursor: pointer;
     text-decoration: underline;
   }
+}
+@mixin BigBtn($color,$bgcolor) {
+  margin: 0;
+  border: none;
+  border-radius: 50px;
+  height: 5rem;
+  width: 20rem;
+  font-size: 2.3rem;
+  cursor: pointer;
+  color: $color;
+  background-color: $bgcolor;
+
 }
 @mixin ModalBack() {
   display: block;
@@ -56,9 +70,10 @@ html {
   width: 85vw;
   height: 85vh;
   border-radius: 50px;
-  background-color: white;
+  background-color: $maincolorI;
   margin-top: 2%;
-  padding-bottom: 3%;
+  padding-bottom: 4%;
+  padding-right: 4%;
   box-shadow: 3px 7px 5px 9px rgba(0, 0, 0, 0.25);
 }
 ul,
@@ -73,104 +88,84 @@ form {
   margin-top: 20px;
 }
 // ---------------------------------------------------Home Style
-.HomeDiv {
+.Background{
+  position: relative;
+  margin: auto;
   width: 85vw;
   height: 85vh;
   border-radius: 50px;
-  margin-top: 3%;
-  padding-top: 5%;
   background-image: url(../src/BackgroundImage.jpg);
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  text-align: center;
+  padding-bottom: 4%;
+  padding-right: 4%;
+}
+.HomeDiv {
   display: flex;
   flex-direction: column;
-  .HomeH1 {
-    margin-top: 100px;
-  }
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
   .JoinBtn {
-    margin-top: 50px;
+    @include BigBtn($maincolorI,$maincolorO);
+    margin-top: 2rem;
+  }
+  .LoginBtn {
+    @include BigBtn($maincolorB,$maincolorI);
+    margin-top: 2rem;
   }
 }
 .HomeH1 {
   font-size: $fs1;
-  margin-top: 50px;
-  margin-bottom: 0;
-}
-.JoinBtn {
-  margin: 0 auto;
-  margin-top: 30px;
-  background: orange;
-  border: none;
-  border-radius: 50px;
-  height: 80px;
-  width: 350px;
-  font-size: 40px;
-  color: white;
-  cursor: pointer;
-}
-.LoginBtn {
-  margin: 0 auto;
-  background: white;
-  border: none;
-  border-radius: 50px;
-  height: 80px;
-  width: 350px;
-  font-size: 40px;
-  color: black;
-  margin-top: 50px;
-  cursor: pointer;
-}
-.GoJoinBtn {
-  @include Btn(white);
+  margin: 0;
 }
 .RegisterDiv {
-  width: 85vw;
-  height: 85vh;
-  border-radius: 50px;
-  margin-top: 3%;
-  padding-top: 5%;
-  background-image: url(../src/BackgroundImage.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  text-align: center;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  .JoinBtn {
+    @include BigBtn($maincolorI,$maincolorO);
+    margin-top: 2rem;
+  }
   input {
-    margin-top: 30px;
     border: none;
     border-radius: 50px;
-    height: 80px;
-    width: 350px;
-    font-size: 30px;
-    padding-left: 30px;
+    height: 5rem;
+    width: 20rem;
+    padding-left: 2rem;
+    font-size: 2rem;
     box-sizing: border-box;
+    margin-top: 1rem;
   }
 }
 .LoginDiv {
-  width: 85vw;
-  height: 85vh;
-  border-radius: 50px;
-  margin-top: 3%;
-  padding-top: 5%;
-  background-image: url(../src/BackgroundImage.jpg);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  text-align: center;
   display: flex;
   flex-direction: column;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  .LoginBtn {
+    @include BigBtn($maincolorB,$maincolorI);
+    margin-top: 2rem;
+  }
   input {
-    margin-top: 30px;
     border: none;
     border-radius: 50px;
-    height: 80px;
-    width: 350px;
-    font-size: 30px;
-    padding-left: 30px;
+    height: 5rem;
+    width: 20rem;
+    padding-left: 2rem;
+    font-size: 2rem;
     box-sizing: border-box;
+    margin-top: 1rem;
+  }
+  .LoginBtn {
+    margin-top: 2rem;
   }
 }
 // ---------------------------------------------------Header Style
@@ -195,12 +190,14 @@ form {
       color: $maincolorO;
     }
   }
+  .MyBtnDiv{
+    cursor: pointer;
+  }
   .MyBtn {
     color: black;
     height: 30%;
     width: 100%;
     font-size: $fs4;
-    cursor: pointer;
     position: absolute;
     left: 88%;
     top: 40px;
@@ -212,16 +209,16 @@ form {
     background-position: center center;
     width: 40px;
     height: 40px;
-    border: 2px solid black;
+    border: 2px solid $maincolorB;
     border-radius: 50%;
     position: absolute;
     left: 83%;
     top: 30px;
   }
   .MyMenu {
-    position: absolute;
-    top:0px;
-    right: 0px;
+    position: relative;
+    top: 0;
+    right: 0;
     background-color: $maincolorO;
     width: 300px;
     height: 100%;
@@ -231,7 +228,6 @@ form {
     text-align: center;
     border-radius: 30px;
     z-index: 90;
-    line-height: 50px;
   }
 }
 .InfoMyImg{
@@ -241,7 +237,7 @@ form {
     background-position: center center;
     width: 80px;
     height: 80px;
-    border: 2px solid black;
+    border: 2px solid $maincolorB;
     border-radius: 50%;
     position: absolute;
     left: 50%;
@@ -271,7 +267,7 @@ form {
     cursor: pointer;
     &:hover{
       margin:auto;
-      background-color: rgba(241, 214, 163, 0.589);
+      background-color: $maincolorS;
     }
   }
 }
@@ -288,29 +284,30 @@ form {
     padding: $fs5;
     cursor: pointer;
     &:hover {
-      background: rgba(255, 165, 0, 0.5);
+      background: $maincolorS;
       border-radius: 30px;
-      color: white;
+      color: $maincolorI;
     }
     &:hover .icon {
-      fill: white;
+      fill: $maincolorI;
     }
   }
 }
-
+.menuicon{
+  display: none;
+}
 // ---------------------------------------------------Main Style
 .MainDiv {
-  display: inline-block;
+  background-color: $maincolorI;
+  border-radius: 50px;
   width: 100%;
-  height: 90vh;
-  position: absolute;
-  top:-10px;
-
+  height: 100%;
+  padding-bottom: 4%;
   .Contents {
-    margin: auto;
     position: absolute;
     top: 15%;
-    left: 12%;
+    left: 60%;
+    transform: translateX(-52.5%);
     display: flex;
     justify-content: space-around;
     flex-wrap: wrap;
@@ -409,7 +406,7 @@ form {
     text-align: right;
     margin-right: 5%;
     .DetailBtn {
-      @include Btn(black);
+      @include SmallBtn(black);
       padding: 0 10px;
       &::before {
         content: "|";
@@ -453,7 +450,7 @@ form {
     .SearchBox {
       display: block;
       position: relative;
-      width: 400px;
+      width: 22rem;
       padding: 5%;
       margin: 20px 150px 50px 150px;
       border: 2px solid $maincolorO;
@@ -463,10 +460,10 @@ form {
       letter-spacing: 0.2em;
     }
     .GosearchBtn {
-      @include Btn($maincolorO);
+      @include SmallBtn($maincolorO);
       font-size: $fs2;
       position: absolute;
-      right: 180px;
+      right: 11rem;
       top: 55px;
     }
   }
@@ -477,7 +474,8 @@ form {
   height: 70vh;
   position: absolute;
   top: 15%;
-  left: 15%;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   .EditTitle {
@@ -541,4 +539,54 @@ form {
   bottom: 10px;
   right: 10px;
   font-size: $fs2;
+}
+
+@media screen and (max-width:1000px) {
+  .menuicon{
+    display: inline-block;
+    position:fixed;
+    top: 60px;
+    right: 95px;
+    font-size: $fs2;
+  }
+  .NavDiv{
+    display: none;
+  }
+  .MyImg{
+    display: none;
+  }
+  .MyBtn{
+    display: none;
+  }
+  .MainDiv{
+    .Contents{
+      left: 50%;
+      transform: translateX(-50%);
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .Mainlistdiv {
+        width: 180px;
+        height: 350px;
+        .mainimg {
+          width: 180px;
+          height: 350px;
+          border-radius: 20px;
+        }
+        .Mainlisth3 {
+          position: relative;
+          top: -350px;
+          font-size: $fs3;
+          color: $maincolorI;
+        }
+        .Maintagh4 {
+          position: relative;
+          top: -350px;
+          font-size: $fs4;
+          color: $maincolorI;
+          margin: 0 0 0 20px;
+        }
+      }
+    }
+  }
 }

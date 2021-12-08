@@ -22,7 +22,6 @@ const Contents = ({searchstatus, SetSearchstatus}) => {
     return (
             <div className="Contents">
       {searchstatus === true ? <Search searchword={searchword} setSearchword={setSearchword} /> : null}
-
         {searchword !== undefined ?
          result.map((blogData) => {
           return (
