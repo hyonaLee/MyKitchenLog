@@ -2,6 +2,8 @@ import { Link, useParams } from "react-router-dom";
 import React, { useState, useEffect } from "react";
 import store from "../../../Store/store";
 import { observer } from "mobx-react";
+import { toJS } from "mobx";
+
 
 function Edit() {
   // (GET) serer로부터 data 불러오기
@@ -29,15 +31,16 @@ function Edit() {
 
   // Post 수정하기
   const [loadfile, setLoadfile] = useState();
+  // 기존data
   const [currentURL, setCurrentURL] = useState();
   const currentTitle = postFilter.length !== 0 && postFilter[0].title;
-  const currentTag = postFilter.length !== 0 && postFilter[0].tag;
+  const currentTag = postFilter.length !== 0 && toJS(postFilter[0].tag);
   const currentContents = postFilter.length !== 0 && postFilter[0].contents;
+  // 추가data
+  const [modiURL, setModiURL] = useState(currentURL);
   const [modititle, setModititle] = useState(currentTitle);
   const [moditag, setModitag] = useState(currentTag);
   const [modicontents, setModicontents] = useState(currentContents);
-  const [modiURL, setModiURL] = useState(currentURL);
-
   // user가 작성한 input 받아오기
   const EditTitle = (event) => {
     setModititle(event.target.value);
@@ -63,18 +66,19 @@ function Edit() {
   const Keypress = (e) => {
     if (e.key === "Enter" || e.code === "Space") {
       setTagList((tagList) => [...tagList, moditag]);
-      setModitag("");
-      e.preventDefault();
+      e.target.value = "";
     }
-    console.log("태그리스트", tagList);
   };
+  
+  //수정요청 보낼 태그
+  const postTag = [...currentTag, ...tagList]
 
   // (PUT/PATCH) server로 data 수정 요청
   const modifiyData = () => {
     const mappingData = {
       date: editTime,
       title: modititle === false ? currentTitle : modititle,
-      tag: tagList.length === 0 ? currentTag : tagList,
+      tag: postTag,
       contents: modicontents === false ? currentContents : modicontents,
       imgURL: modiURL === undefined ? currentURL : modiURL,
     };
@@ -90,13 +94,18 @@ function Edit() {
         </textarea>
         <div className="EditTagDiv">
           <textarea className="EditTag" name="tag" onChange={EditTag} onKeyPress={Keypress}>
-            {moditag === false ? currentTag : moditag}
           </textarea>
           <div className="EditTagShowDiv">
-            {tagList.length !== 0 &&
-              tagList.map((v, i) => {
-                return <span className="hash">#{tagList[i]} </span>;
-              })}
+            {tagList !== undefined &&
+              currentTag.map((v, i) => {
+                return (
+                  <>
+                <span className="hash">#{currentTag[i]}</span>
+                <span className="hash">#{tagList[i]}</span>
+                </>
+                )
+              })           
+            }
           </div>
         </div>
         <textarea className="EditContents" name="contents" onChange={EditContents}>
@@ -105,7 +114,7 @@ function Edit() {
         <div className="EditBtnDiv">
           <img src={loadfile} alt="Img URL" width="100px" />
           <input type="file" accept="image/*" onChange={EditURL} />
-          <Link to="/">
+          <Link to="/Main">
             <button className="EditBtn" onClick={modifiyData}>Post</button>
           </Link>
         </div>

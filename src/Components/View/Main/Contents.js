@@ -11,7 +11,7 @@ const Contents = ({searchstatus, SetSearchstatus}) => {
   useEffect(() => {
     store.LoadData();
   }, []);
-  console.log(store.getBlogData)
+  // console.log(store.getBlogData)
 
   // 검색어 매칭
   const [searchword , setSearchword] = useState();
@@ -20,8 +20,10 @@ const Contents = ({searchstatus, SetSearchstatus}) => {
   });
 
     return (
-            <div className="Contents">
+    <div className="Contents">
+      {/* 검색창 show여부 */}
       {searchstatus === true ? <Search searchword={searchword} setSearchword={setSearchword} /> : null}
+      {/* 게시물 검색 시 : 기본 렌더링 */}
         {searchword !== undefined ?
          result.map((blogData) => {
           return (
@@ -41,7 +43,6 @@ const Contents = ({searchstatus, SetSearchstatus}) => {
             </Link>
           );
           })
-          
         : store.getBlogData.map((blogData) => {
           return (
             <Link to={`Detail/${blogData.id}`}>
@@ -61,7 +62,7 @@ const Contents = ({searchstatus, SetSearchstatus}) => {
           );
         })}
 
-        </div>
+    </div>
     )
 }
 
