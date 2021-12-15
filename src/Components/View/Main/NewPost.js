@@ -4,6 +4,7 @@ import store from "../../../Store/store";
 import { observer } from "mobx-react";
 
 function NewPost() {
+
   //autofocus
   const onfocus = useRef();
   useEffect(() => {
@@ -64,7 +65,6 @@ function NewPost() {
       });
       e.preventDefault();
     }
-
     console.log("인풋", inputs.tag);
     console.log("태그리스트", tagList);
   };

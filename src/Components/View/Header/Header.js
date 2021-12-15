@@ -5,6 +5,7 @@ import MyBtn from './MyBtn';
 import MyInfo from './MyInfo'
 
 function Header({searchstatus,SetSearchstatus}) {
+    
     const [MyPageStatus, setMyPageStatus] = useState(false);
 
     return (

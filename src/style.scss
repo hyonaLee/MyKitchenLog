@@ -444,13 +444,14 @@ form {
 
 // ---------------------------------------------------Search Style
 .SearchBackDiv {
-  position: relative;
+  width: 100vw;
   .SearchDiv {
+    position: relative;
     .SearchBox {
       display: block;
       position: relative;
-      width: 22rem;
-      padding: 5%;
+      width: 25rem;
+      padding: 4% 5%;
       margin: 20px 150px 50px 150px;
       border: 2px solid $maincolorO;
       border-radius: 15px;
@@ -462,8 +463,8 @@ form {
       @include SmallBtn($maincolorO);
       font-size: $fs2;
       position: absolute;
-      right: 11rem;
-      top: 55px;
+      left: 30rem;
+      top: 2rem;
     }
   }
 }
@@ -503,9 +504,8 @@ form {
   }
   .EditContents {
     width: 80%;
-    height: 300px;
+    height: 100%;
     padding: 4%;
-    line-height: 4%;
     margin: auto;
     margin-top: 5px;
     margin-bottom: 5px;
