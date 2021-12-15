@@ -2,8 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import store from "../../../Store/store";
 import { observer } from "mobx-react";
-import Nav from "../Header/Nav";
-import Header from "../Header/Header";
 
 function NewPost() {
   //autofocus
@@ -85,7 +83,6 @@ function NewPost() {
 
   return (
     <>
-    <Header/>
     <div className="EditDiv">
       <textarea
         className="EditTitle"
@@ -123,7 +120,7 @@ function NewPost() {
       <div className="EditBtnDiv">
         <img src={loadfile} alt="Blob URL" width="100px" />
         <input type="file" accept="image/*" onChange={Loadedfile} />
-        <Link to="/Main">
+        <Link to="/main">
           <button className="EditBtn" onClick={postData}>
             Post
           </button>

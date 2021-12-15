@@ -5,21 +5,23 @@ export default function MyInfo({MyPageStatus, setMyPageStatus, SetSearchstatus, 
     return (
         <div className="MyMenu">
             <div className="InfoMyMenu" onClick={() => {
-            setMyPageStatus(!MyPageStatus);
-        }}>
+            setMyPageStatus(!MyPageStatus)
+            }}>
             <span className="InfoMyImg"></span>
             <span className="InfoMyBtn">Nickname</span>
             </div>
             <ul className="InfoList">
-                <li>MyPage</li>
-                <Link to="/Main">
-                <li onClick={() => {SetSearchstatus(!searchstatus)||setMyPageStatus(!MyPageStatus)}} >Search</li>
+                <Link to="/mypage">
+                <li onClick={() => {setMyPageStatus(!MyPageStatus)}}>MyPage</li>
                 </Link>
-                <Link to="/NewPost">
-                <li>NewPost</li>
+                <Link to="/main">
+                <li onClick={() => {setMyPageStatus(!MyPageStatus)}}>Main</li>
+                </Link>
+                <Link to="/main/newpost">
+                <li onClick={() => {setMyPageStatus(!MyPageStatus)}}>NewPost</li>
                 </Link>
                 <Link to="/">
-                <li>Logout</li>
+                <li onClick="logoutconfirm">Logout</li>
                 </Link>
             </ul>
         </div>

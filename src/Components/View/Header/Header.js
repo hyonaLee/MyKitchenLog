@@ -9,7 +9,7 @@ function Header({searchstatus,SetSearchstatus}) {
 
     return (
         <div className="HeaderDiv">
-            <Link to="/Main">
+            <Link to="/main">
                 <Logo/>
             </Link>
             <MyBtn MyPageStatus={MyPageStatus} setMyPageStatus={setMyPageStatus} />

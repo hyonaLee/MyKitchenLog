@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { observer } from "mobx-react";
 import store from "../../../Store/store";
-import Header from "../Header/Header";
 
 function Detail() {
   // (GET) serer로부터 data 불러오기
@@ -18,7 +17,7 @@ function Detail() {
     // console.log("postFilter: ", value.id);
     return value.id === Number(currentid);
   });
-
+  // console.log("postFilter", postFilter);
   // (DEL) server로 data 삭제 요청
   function DelPosts() {
     store.DeleteData(currentid);
@@ -29,12 +28,16 @@ function Detail() {
 
   function Modal() {
     return (
-      <div className="ModalBackDiv" onClick={() => {
-        changeModal(!modal);
-      }}>
+      <div
+        className="ModalBackDiv"
+        onClick={() => {
+          changeModal(!modal);
+        }}
+      >
         <div className="ModalDiv">
           <p>삭제하시겠습니까?</p>
-          <button className="CxlBtn"
+          <button
+            className="CxlBtn"
             onClick={() => {
               changeModal(!modal);
             }}
@@ -42,7 +45,9 @@ function Detail() {
             취소
           </button>
           <Link to="/Main">
-            <button className="DelBtn" onClick={DelPosts}>삭제</button>
+            <button className="DelBtn" onClick={DelPosts}>
+              삭제
+            </button>
           </Link>
         </div>
       </div>
@@ -52,26 +57,25 @@ function Detail() {
   return (
     postFilter.length !== 0 && (
       <>
-        <Header/>
         <div className="DetailDiv">
           {modal === true ? <Modal /> : null}
           <h1 className="DetailTitleh1">
             My Kitchen 레시피 - {postFilter[0].title}
           </h1>
           <div className="DetailBtnDiv">
-            <Link to={`/Edit/${currentid}`}>
+            <Link to={`/main/edit/${currentid}`}>
               <button className="DetailBtn">수정</button>
             </Link>
-              <button className="DetailBtn"
-                onClick={() => {
-                  changeModal(!modal);
-                }}
-              >
-                삭제
-              </button>
+            <button
+              className="DetailBtn"
+              onClick={() => {
+                changeModal(!modal);
+              }}
+            >
+              삭제
+            </button>
           </div>
           <h4 className="DetailDateh4">{postFilter[0].date}</h4>
-
           <h3 className="DetailTagh3">
             {postFilter[0].tag.length !== 0 &&
               postFilter[0].tag.map((v) => {

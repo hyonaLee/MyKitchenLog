@@ -27,7 +27,7 @@ const Contents = ({searchstatus, SetSearchstatus}) => {
         {searchword !== undefined ?
          result.map((blogData) => {
           return (
-            <Link to={`Detail/${blogData.id}`}>
+            <Link to={`/main/detail/${blogData.id}`}>
               <div className="Mainlistdiv" key={blogData.id}>
                 <img className="mainimg" src={blogData.imgURL} alt="img"/>
                 <h3 className="Mainlisth3">
@@ -45,7 +45,7 @@ const Contents = ({searchstatus, SetSearchstatus}) => {
           })
         : store.getBlogData.map((blogData) => {
           return (
-            <Link to={`Detail/${blogData.id}`}>
+            <Link to={`/main/detail/${blogData.id}`}>
               <div className="Mainlistdiv" key={blogData.id}>
                 <img className="mainimg" src={blogData.imgURL} alt="img"/>
                 <h3 className="Mainlisth3">

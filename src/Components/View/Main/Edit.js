@@ -63,15 +63,24 @@ function Edit() {
 
   // 해시태그 기능
   const [tagList, setTagList] = useState([]);
+  // const TagAll = tagList.replacer(/(\s*)/g,"");
   const Keypress = (e) => {
     if (e.key === "Enter" || e.code === "Space") {
-      setTagList((tagList) => [...tagList, moditag]);
+      setTagList((TagAll) => [...TagAll, moditag]);
       e.target.value = "";
     }
   };
   
   //수정요청 보낼 태그
-  const postTag = [...currentTag, ...tagList]
+  // const Tags = currentTag.map((v) => {
+  //   console.log(Tags)
+  //   return v
+  // })
+  console.log(currentTag)
+  console.log(tagList)
+  // const Tagss = currentTag.concat(tagList)
+  // console.log(Tagss)
+  const postTag = [currentTag, ...tagList]
 
   // (PUT/PATCH) server로 data 수정 요청
   const modifiyData = () => {
@@ -93,7 +102,7 @@ function Edit() {
           {currentTitle}
         </textarea>
         <div className="EditTagDiv">
-          <textarea className="EditTag" name="tag" onChange={EditTag} onKeyPress={Keypress}>
+          <textarea className="EditTag" placeholder="주재료" name="tag" onChange={EditTag} onKeyPress={Keypress}>
           </textarea>
           <div className="EditTagShowDiv">
             {tagList !== undefined &&
@@ -114,7 +123,7 @@ function Edit() {
         <div className="EditBtnDiv">
           <img src={loadfile} alt="Img URL" width="100px" />
           <input type="file" accept="image/*" onChange={EditURL} />
-          <Link to="/Main">
+          <Link to="/main">
             <button className="EditBtn" onClick={modifiyData}>Post</button>
           </Link>
         </div>

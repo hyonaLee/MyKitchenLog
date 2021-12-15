@@ -11,7 +11,7 @@ function LoginPage() {
                         </input>
                         <input type="Text" placeholder="PASSWORD" name="EMALIL">
                         </input>
-                        <Link to="/Main">
+                        <Link to="/main">
                         <button className="LoginBtn">LOGIN</button>
                         </Link>
                     </form>
