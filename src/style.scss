@@ -20,7 +20,7 @@ $fs6: 0.8em;
     text-decoration: underline;
   }
 }
-@mixin BigBtn($color,$bgcolor) {
+@mixin BigBtn($color, $bgcolor) {
   margin: 0;
   border: none;
   border-radius: 50px;
@@ -30,7 +30,6 @@ $fs6: 0.8em;
   cursor: pointer;
   color: $color;
   background-color: $bgcolor;
-
 }
 @mixin ModalBack() {
   display: block;
@@ -87,8 +86,13 @@ form {
   margin: 0 auto;
   margin-top: 20px;
 }
+
+input[type="search"]::-ms-clear {
+  display: none;
+}
+
 // ---------------------------------------------------Home Style
-.Background{
+.Background {
   position: relative;
   margin: auto;
   width: 86vw;
@@ -105,15 +109,15 @@ form {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top:50%;
-  left:50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   .JoinBtn {
-    @include BigBtn($maincolorI,$maincolorO);
+    @include BigBtn($maincolorI, $maincolorO);
     margin-top: 2rem;
   }
   .LoginBtn {
-    @include BigBtn($maincolorB,$maincolorI);
+    @include BigBtn($maincolorB, $maincolorI);
     margin-top: 2rem;
   }
 }
@@ -125,11 +129,11 @@ form {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top:50%;
-  left:50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   .JoinBtn {
-    @include BigBtn($maincolorI,$maincolorO);
+    @include BigBtn($maincolorI, $maincolorO);
     margin-top: 2rem;
   }
   input {
@@ -147,11 +151,11 @@ form {
   display: flex;
   flex-direction: column;
   position: absolute;
-  top:50%;
-  left:50%;
+  top: 50%;
+  left: 50%;
   transform: translate(-50%, -50%);
   .LoginBtn {
-    @include BigBtn($maincolorB,$maincolorI);
+    @include BigBtn($maincolorB, $maincolorI);
     margin-top: 2rem;
   }
   input {
@@ -170,7 +174,6 @@ form {
 }
 // ---------------------------------------------------Header Style
 .HeaderDiv {
-  // z-index: 99;
   width: 100%;
   height: 100%;
   background-color: none;
@@ -181,7 +184,6 @@ form {
   align-items: flex-start;
   position: absolute;
   border-radius: 50px 50px 0px 0px;
-  top: 10px;
   .LogoDiv {
     .LogoH2 {
       font-size: $fs2;
@@ -190,7 +192,7 @@ form {
       color: $maincolorO;
     }
   }
-  .MyBtnDiv{
+  .MyBtnDiv {
     cursor: pointer;
   }
   .MyBtn {
@@ -217,7 +219,6 @@ form {
   }
   .MyMenu {
     position: relative;
-    top: 0;
     right: 0;
     background-color: $maincolorO;
     width: 300px;
@@ -230,21 +231,21 @@ form {
     z-index: 90;
   }
 }
-.InfoMyImg{
-    background-image: url("https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3135/7573.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center center;
-    width: 80px;
-    height: 80px;
-    border: 2px solid $maincolorB;
-    border-radius: 50%;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    top: 30px;
+.InfoMyImg {
+  background-image: url("https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3135/7573.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  width: 80px;
+  height: 80px;
+  border: 2px solid $maincolorB;
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 30px;
 }
-.InfoMyBtn{
+.InfoMyBtn {
   color: black;
   height: 30%;
   font-size: $fs4;
@@ -253,20 +254,20 @@ form {
   left: 50%;
   transform: translateX(-50%);
 }
-.InfoMyMenu{
+.InfoMyMenu {
   cursor: pointer;
 }
-.InfoList{
+.InfoList {
   position: absolute;
   top: 200px;
   left: 50%;
   transform: translateX(-50%);
   line-height: 4rem;
-  li{
+  li {
     width: 300px;
     cursor: pointer;
-    &:hover{
-      margin:auto;
+    &:hover {
+      margin: auto;
       background-color: $maincolorS;
     }
   }
@@ -293,7 +294,7 @@ form {
     }
   }
 }
-.menuicon{
+.menuicon {
   display: none;
 }
 // ---------------------------------------------------Main Style
@@ -303,7 +304,7 @@ form {
   width: 100%;
   height: 100%;
   .Contents {
-    position: absolute;
+    position: relative;
     top: 15%;
     left: 60%;
     transform: translateX(-52.5%);
@@ -368,14 +369,14 @@ form {
 
 // ---------------------------------------------------Detail Style
 .DetailDiv {
-  width: 83%;
+  width: 75%;
   height: 70vh;
   position: absolute;
   top: 15%;
-  left: 5%;
+  left: 15%;
   display: flex;
   flex-direction: column;
-  padding: 1% 5%;
+  padding: 1% 4%;
   overflow-y: scroll;
   overflow-x: hidden;
 
@@ -444,15 +445,19 @@ form {
 
 // ---------------------------------------------------Search Style
 .SearchBackDiv {
-  width: 100vw;
+  width: 100%;
+  height: 150px;
+  position: relative;
+  display: inline-block;
   .SearchDiv {
-    position: relative;
     .SearchBox {
+      left: 50%;
+      transform: translateX(-50%);
       display: block;
-      position: relative;
-      width: 25rem;
-      padding: 4% 5%;
-      margin: 20px 150px 50px 150px;
+      position: absolute;
+      width: 350px;
+      height: 100px;
+      padding: 20px 40px;
       border: 2px solid $maincolorO;
       border-radius: 15px;
       font-size: $fs3;
@@ -462,9 +467,9 @@ form {
     .GosearchBtn {
       @include SmallBtn($maincolorO);
       font-size: $fs2;
-      position: absolute;
-      left: 30rem;
-      top: 2rem;
+      position: relative;
+      top: 30px;
+      right: -63%;
     }
   }
 }
@@ -474,32 +479,44 @@ form {
   height: 70vh;
   position: absolute;
   top: 15%;
-  left: 50%;
+  left: 56%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   .EditTitle {
-    width: 80%;
-    padding: 4%;
+    font-size: $fs4;
     line-height: 4%;
+    width: 80%;
+    height: 10px;
+    padding: 4%;
     margin: auto;
     border: 2px solid black;
-    font-size: $fs4;
   }
   .EditTagDiv {
     display: flex;
     flex-direction: column;
     .EditTag {
-      border: 2px solid black;
-      width: 80%;
-      padding: 4%;
+      font-size: $fs4;
       line-height: 4%;
+      width: 80%;
+      height: 100%;
+      padding: 4%;
       margin: auto;
       margin-top: 5px;
-      font-size: $fs4;
+      border: 2px solid black;
     }
     .EditTagShowDiv {
       text-align: center;
+    }
+    .hash{
+      background: none;
+      border: 1px solid black;
+      margin-top: 5px;
+      margin-right: 2px;
+      cursor: pointer;
+      &:hover {
+        background-color: gray;
+      }
     }
   }
   .EditContents {
@@ -540,25 +557,25 @@ form {
   font-size: $fs2;
 }
 
-@media screen and (max-width:1000px) {
-  .menuicon{
+@media screen and (max-width: 1000px) {
+  .menuicon {
     display: inline-block;
-    position:fixed;
+    position: fixed;
     top: 60px;
     right: 95px;
     font-size: $fs2;
   }
-  .NavDiv{
+  .NavDiv {
     display: none;
   }
-  .MyImg{
+  .MyImg {
     display: none;
   }
-  .MyBtn{
+  .MyBtn {
     display: none;
   }
-  .MainDiv{
-    .Contents{
+  .MainDiv {
+    .Contents {
       left: 50%;
       transform: translateX(-50%);
       &::-webkit-scrollbar {
@@ -587,5 +604,8 @@ form {
         }
       }
     }
+  }
+  .EditDiv {
+    left: 50%;
   }
 }

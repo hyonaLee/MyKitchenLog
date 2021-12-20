@@ -4,7 +4,6 @@ import store from "../../../Store/store";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
 
-
 function Edit() {
   // (GET) serer로부터 data 불러오기
   useEffect(() => {
@@ -38,18 +37,16 @@ function Edit() {
   const currentContents = postFilter.length !== 0 && postFilter[0].contents;
   // 추가data
   const [modiURL, setModiURL] = useState(currentURL);
-  const [modititle, setModititle] = useState(currentTitle);
-  const [moditag, setModitag] = useState(currentTag);
-  const [modicontents, setModicontents] = useState(currentContents);
+  const [modiTitle, setModiTitle] = useState(currentTitle);
+  const [modiTag, setModiTag] = useState(currentTag);
+  const [modiContents, setModiContents] = useState(currentContents);
+
   // user가 작성한 input 받아오기
   const EditTitle = (event) => {
-    setModititle(event.target.value);
-  };
-  const EditTag = (event) => {
-    setModitag(event.target.value);
+    setModiTitle(event.target.value);
   };
   const EditContents = (event) => {
-    setModicontents(event.target.value);
+    setModiContents(event.target.value);
   };
   const EditURL = (event) => {
     setLoadfile(URL.createObjectURL(event.target.files[0]));
@@ -60,35 +57,31 @@ function Edit() {
       setModiURL(event.target.value);
     };
   };
-
   // 해시태그 기능
-  const [tagList, setTagList] = useState([]);
-  // const TagAll = tagList.replacer(/(\s*)/g,"");
+  // 해시태그 추가
   const Keypress = (e) => {
     if (e.key === "Enter" || e.code === "Space") {
-      setTagList((TagAll) => [...TagAll, moditag]);
+      setModiTag([...modiTag, e.target.value.trim()]);
+      console.log(modiTag);
       e.target.value = "";
-    }
+    } 
   };
-  
-  //수정요청 보낼 태그
-  // const Tags = currentTag.map((v) => {
-  //   console.log(Tags)
-  //   return v
-  // })
-  console.log(currentTag)
-  console.log(tagList)
-  // const Tagss = currentTag.concat(tagList)
-  // console.log(Tagss)
-  const postTag = [currentTag, ...tagList]
+  // 해시태그 삭제
+  const delHash = (e) => {
+    const currentHash = e.target.innerText.replace('#','');
+    if(modiTag.indexOf(currentHash) !== -1) {
+      modiTag.splice(modiTag.indexOf(currentHash),1)
+    }
+    console.log(modiTag);
+  }
 
   // (PUT/PATCH) server로 data 수정 요청
   const modifiyData = () => {
     const mappingData = {
       date: editTime,
-      title: modititle === false ? currentTitle : modititle,
-      tag: postTag,
-      contents: modicontents === false ? currentContents : modicontents,
+      title: modiTitle === false ? currentTitle : modiTitle,
+      tag: modiTag,
+      contents: modiContents === false ? currentContents : modiContents,
       imgURL: modiURL === undefined ? currentURL : modiURL,
     };
     store.EditData(currentid, mappingData);
@@ -102,29 +95,37 @@ function Edit() {
           {currentTitle}
         </textarea>
         <div className="EditTagDiv">
-          <textarea className="EditTag" placeholder="주재료" name="tag" onChange={EditTag} onKeyPress={Keypress}>
-          </textarea>
+          <textarea
+            className="EditTag"
+            placeholder="주재료"
+            name="tag"
+            onKeyPress={Keypress}
+          ></textarea>
           <div className="EditTagShowDiv">
-            {tagList !== undefined &&
-              currentTag.map((v, i) => {
+            {postFilter.length !== 0 &&
+              modiTag.map((hash) => {
                 return (
                   <>
-                <span className="hash">#{currentTag[i]}</span>
-                <span className="hash">#{tagList[i]}</span>
-                </>
-                )
-              })           
-            }
+                    <button title="클릭시 태그 삭제" className="hash" onClick={delHash}>#{hash}</button>
+                  </>
+                );
+              })}
           </div>
         </div>
-        <textarea className="EditContents" name="contents" onChange={EditContents}>
+        <textarea
+          className="EditContents"
+          name="contents"
+          onChange={EditContents}
+        >
           {currentContents}
         </textarea>
         <div className="EditBtnDiv">
           <img src={loadfile} alt="Img URL" width="100px" />
           <input type="file" accept="image/*" onChange={EditURL} />
           <Link to="/main">
-            <button className="EditBtn" onClick={modifiyData}>Post</button>
+            <button className="EditBtn" onClick={modifiyData}>
+              Post
+            </button>
           </Link>
         </div>
       </div>
