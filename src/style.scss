@@ -333,12 +333,20 @@ input[type="search"]::-ms-clear {
     }
 
     .Mainlistdiv {
+      position: relative;
       width: 250px;
       height: 350px;
       background-color: $maincolorO;
       box-shadow: 3px 4px 2px #6c4806;
       border-radius: 20px;
       margin-bottom: 20%;
+      .icon{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        fill: red;
+        font-size: 25px;
+      }
       &:hover .Mainlisth3 {
         color: black;
       }
@@ -346,17 +354,16 @@ input[type="search"]::-ms-clear {
         color: black;
       }
       .Mainlisth3 {
-        margin-left: $fs5;
         font-size: $fs4;
         line-height: $fs5;
         color: $maincolorI;
+        margin: 10px 0 15px 15px;
       }
       .Maintagh4 {
-        margin-left: $fs5;
         font-size: $fs5;
-        line-height: $fs5;
+        line-height: 1.2rem;
         color: $maincolorI;
-        margin: 0 0 0 20px;
+        margin: 0 0 0 15px;
       }
       .mainimg {
         width: 250px;
@@ -532,6 +539,14 @@ input[type="search"]::-ms-clear {
   }
   .EditBtnDiv {
     text-align: right;
+    .favoriteDiv{
+      float: left;
+      margin-left: 10%;
+      .icon{
+        vertical-align:sub;
+        cursor: pointer;
+      }
+    }
     .EditBtn {
       border-radius: 14px;
       background-color: $maincolorO;
@@ -545,6 +560,17 @@ input[type="search"]::-ms-clear {
     }
   }
 }
+// ---------------------------------------------------MyPage Style
+
+.MyPageDiv{
+  width: 84%;
+  height: 70vh;
+  position: absolute;
+  top: 15%;
+  left: 56%;
+  transform: translateX(-50%);
+}
+// --------------------------------------------------- media query
 
 @media screen and (max-width: 1000px) {
   .menuicon {

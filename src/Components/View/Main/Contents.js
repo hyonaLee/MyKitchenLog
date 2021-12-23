@@ -4,6 +4,7 @@ import { observer } from "mobx-react";
 import store from "../../../Store/store";
 import { useEffect, useState } from "react";
 import Search from "./Search";
+import { FaHeart } from "react-icons/fa";
 
 const Contents = ({searchstatus, SetSearchstatus}) => {
 
@@ -30,6 +31,9 @@ const Contents = ({searchstatus, SetSearchstatus}) => {
             <Link to={`/main/detail/${blogData.id}`}>
               <div className="Mainlistdiv" key={blogData.id}>
                 <img className="mainimg" src={blogData.imgURL} alt="img"/>
+                {blogData.favorite === true ?
+                 <FaHeart className="icon"/>
+                  : null}
                 <h3 className="Mainlisth3">
                   {blogData.title}
                 </h3>
@@ -48,6 +52,7 @@ const Contents = ({searchstatus, SetSearchstatus}) => {
             <Link to={`/main/detail/${blogData.id}`}>
               <div className="Mainlistdiv" key={blogData.id}>
                 <img className="mainimg" src={blogData.imgURL} alt="img"/>
+                {blogData.favorite===true? <FaHeart className="icon"/> : null}
                 <h3 className="Mainlisth3">
                   {blogData.title}
                 </h3>

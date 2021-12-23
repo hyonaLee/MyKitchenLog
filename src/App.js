@@ -20,8 +20,6 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/register" element={<RegisterPage/>} />
           <Route path="/login" element={<LoginPage/>} />
-          <Route path="/mypage" element={<Auth><MyPage/></Auth>} />
-          <Route path="/mypage/favorit" element={<Auth><MyPage/></Auth>} />
           <Route path="/main/*" element={<Auth><Main searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/></Auth>}>
             <Route path="" element={<Auth><Contents searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/></Auth>} />
             <Route path=":component" element={<Auth><ContentsRoute/></Auth>} />

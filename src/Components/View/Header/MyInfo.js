@@ -25,7 +25,7 @@ export default function MyInfo({MyPageStatus, setMyPageStatus}) {
                 <span className="InfoMyBtn">Nickname</span>
             </div>
             <ul className="InfoList">
-                <Link to="/mypage">
+                <Link to="/main/mypage">
                     <li onClick={() => {setMyPageStatus(!MyPageStatus)}}>MyPage</li>
                 </Link>
                 <Link to="/main">

@@ -16,7 +16,7 @@ export default function Nav({ searchstatus, SetSearchstatus }) {
                     onClick={() => {SetSearchstatus(!searchstatus)}}>
                     <FaSearch className="icon"/><br/>Search</li>
                 </Link>
-                <Link to="/mypage/favorite">
+                <Link to="/main/favorite">
                     <li className="NavFavorite">
                     <FaHeart className="icon" /><br/>Favorite</li>
                 </Link>

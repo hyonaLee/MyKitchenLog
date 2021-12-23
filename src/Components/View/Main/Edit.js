@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import store from "../../../Store/store";
 import { observer } from "mobx-react";
 import { toJS } from "mobx";
+import { FaHeart } from "react-icons/fa";
 
 function Edit() {
   // (GET) serer로부터 data 불러오기
@@ -35,11 +36,13 @@ function Edit() {
   const currentTitle = postFilter.length !== 0 && postFilter[0].title;
   const currentTag = postFilter.length !== 0 && toJS(postFilter[0].tag);
   const currentContents = postFilter.length !== 0 && postFilter[0].contents;
+  const currentFavorite = postFilter.length !== 0 && postFilter[0].favorite;
   // 추가data
   const [modiURL, setModiURL] = useState(currentURL);
   const [modiTitle, setModiTitle] = useState(currentTitle);
   const [modiTag, setModiTag] = useState(currentTag);
   const [modiContents, setModiContents] = useState(currentContents);
+  const [modiFavorite, setModiFavorite] = useState(currentFavorite);
 
   // user가 작성한 input 받아오기
   const EditTitle = (event) => {
@@ -59,7 +62,7 @@ function Edit() {
   };
 
   useEffect(() => {
-    console.log("useEffect")
+    // console.log("useEffect")
   }, [modiTag])
 
   // 해시태그 기능
@@ -74,12 +77,17 @@ function Edit() {
   // 해시태그 삭제
   const delHash = (e) => {
     const currentHash = e.target.innerText.replace('#','');
-    if(modiTag.indexOf(currentHash) !== -1) {
-      setModiTag(modiTag.splice(modiTag.indexOf(currentHash),1))
+    if (modiTag.indexOf(currentHash) !== -1) {
+      modiTag.splice(modiTag.indexOf(currentHash),1)
     }
-    console.log(modiTag);
+    // console.log(modiTag);
+    setModiTag([...modiTag])
   }
 
+  //favorite status change
+  const changeFavorite = () => {
+    setModiFavorite(!modiFavorite)
+  }
   // (PUT/PATCH) server로 data 수정 요청
   const modifiyData = () => {
     const mappingData = {
@@ -88,6 +96,7 @@ function Edit() {
       tag: modiTag,
       contents: modiContents === false ? currentContents : modiContents,
       imgURL: modiURL === undefined ? currentURL : modiURL,
+      favorite: modiFavorite
     };
     store.EditData(currentid, mappingData);
   };
@@ -125,6 +134,10 @@ function Edit() {
           {currentContents}
         </textarea>
         <div className="EditBtnDiv">
+          <div className="favoriteDiv">
+        {modiFavorite === true ? <FaHeart className="icon" onClick={changeFavorite} style={{fill : "red"}}/> : <FaHeart className="icon" onClick={changeFavorite} style={{fill : "black"}}/>}
+        &nbsp;like it!
+        </div>
           <img src={loadfile} alt="Img URL" width="100px" />
           <input type="file" accept="image/*" onChange={EditURL} />
           <Link to="/main">
