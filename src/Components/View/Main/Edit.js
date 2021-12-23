@@ -57,6 +57,11 @@ function Edit() {
       setModiURL(event.target.value);
     };
   };
+
+  useEffect(() => {
+    console.log("useEffect")
+  }, [modiTag])
+
   // 해시태그 기능
   // 해시태그 추가
   const Keypress = (e) => {
@@ -70,7 +75,7 @@ function Edit() {
   const delHash = (e) => {
     const currentHash = e.target.innerText.replace('#','');
     if(modiTag.indexOf(currentHash) !== -1) {
-      modiTag.splice(modiTag.indexOf(currentHash),1)
+      setModiTag(modiTag.splice(modiTag.indexOf(currentHash),1))
     }
     console.log(modiTag);
   }

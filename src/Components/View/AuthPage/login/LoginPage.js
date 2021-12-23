@@ -28,7 +28,7 @@ export default function LoginPage(props) {
     .then((response) => {
       if (response.payload.loginSuccess) {
         alert("로그인성공");
-        navigate("/");
+        navigate("/Main");
       } else {
         alert("로그인실패");
       }

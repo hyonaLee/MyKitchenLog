@@ -8,6 +8,7 @@ import Home from "./Components/View/Main/Home";
 import MyPage from "./Components/View/Main/MyPage";
 import Contents from "./Components/View/Main/Contents";
 import ContentsRoute from "./Components/View/Main/ContentsRoute";
+import Auth from "../src/Components/Auth/Auth"
 
 function App() {
   
@@ -19,12 +20,12 @@ function App() {
           <Route path="/" element={<Home/>} />
           <Route path="/register" element={<RegisterPage/>} />
           <Route path="/login" element={<LoginPage/>} />
-          <Route path="/mypage" element={<MyPage/>} />
-          <Route path="/mypage/favorit" element={<MyPage/>} />
-          <Route path="/main/*" element={<Main searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/>}>
-            <Route path="" element={<Contents searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/>} />
-            <Route path=":component" element={<ContentsRoute/>} />
-            <Route path=":component/:id" element={<ContentsRoute/>} />
+          <Route path="/mypage" element={<Auth><MyPage/></Auth>} />
+          <Route path="/mypage/favorit" element={<Auth><MyPage/></Auth>} />
+          <Route path="/main/*" element={<Auth><Main searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/></Auth>}>
+            <Route path="" element={<Auth><Contents searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/></Auth>} />
+            <Route path=":component" element={<Auth><ContentsRoute/></Auth>} />
+            <Route path=":component/:id" element={<Auth><ContentsRoute/></Auth>} />
           </Route>
       </Routes>
     </div>
