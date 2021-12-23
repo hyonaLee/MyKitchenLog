@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function Home() {
       useEffect(() => {
-    axios.get("api/hello").then((response) => {
+    axios.get("/api/hello").then((response) => {
       console.log(response);
     });
   }, []);
