@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { loginUser } from "../../../_actions/user_action";
+import { loginUser } from "../../../../_actions/user_action";
 import { useNavigate } from "react-router-dom"
 
-function LoginPage(props) {
+export default function LoginPage(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -53,4 +53,4 @@ function LoginPage(props) {
         </div>
     )
 }
-export default LoginPage;
+

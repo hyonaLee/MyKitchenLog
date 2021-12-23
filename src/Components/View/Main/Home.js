@@ -1,7 +1,14 @@
-import React from 'react'
+import axios from 'axios';
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom';
 
 export default function Home() {
+      useEffect(() => {
+    axios.get("api/hello").then((response) => {
+      console.log(response);
+    });
+  }, []);
+
     return (
         <div className="Background">
             <div className="HomeDiv">

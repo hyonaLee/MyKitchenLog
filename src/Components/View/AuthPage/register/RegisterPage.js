@@ -1,29 +1,29 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import { registerUser } from '../../../_actions/user_action'
+import { registerUser } from '../../../../_actions/user_action'
 import { useNavigate } from "react-router-dom"
 
-function RegisterPage(props) {
+export default function RegisterPage(props) {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const [Email, setEmail] = useState("")
-    const [Id, setId] = useState("")
+    const [Name, setName] = useState("")
     const [Password, setPassword] = useState("")
-    // const [ConfirmPassword, setConfirmPassword] = useState("")
+    const [ConfirmPassword, setConfirmPassword] = useState("")
 
     const onEmailHandler = (e) => {
         setEmail(e.currentTarget.value)
     }
-    const onIdHandler = (e) => {
-        setId(e.currentTarget.value)
+    const onNameHandler = (e) => {
+        setName(e.currentTarget.value)
     }
     const onPasswordHandler = (e) => {
         setPassword(e.currentTarget.value)
     }
-    // const onConfirmPasswordHandler = (e) => {
-    //     setConfirmPassword(e.currentTarget.value)
+    const onConfirmPasswordHandler = (e) => {
+        setConfirmPassword(e.currentTarget.value)
     }
     const onSubmitHandler = (e) => {
         e.preventDefault();
@@ -37,12 +37,12 @@ function RegisterPage(props) {
         let body = {
             email: Email,
             password: Password,
-            id: Id
+            name: Name
         }
-        // console.log(body)
+        console.log(body)
         dispatch(registerUser(body))
         .then((response) => {
-            // console.log(response.payload.success)
+            console.log(response.payload.success)
             if (response.payload.success) {
               alert("회원가입성공");
               navigate("/login");
@@ -50,25 +50,24 @@ function RegisterPage(props) {
               alert("회원가입실패");
             }
           });
-    };
+        }
 
     return (
         <div className="Background">
             <div className="RegisterDiv">
                 <h1 className="HomeH1">My Kitchen Log</h1>
                     <form onSubmit={onSubmitHandler}>
-                        <input type="Text" placeholder="ID" value={Id} onChange={onIdHandler}>
+                        <input type="text" placeholder="NAME" value={Name} onChange={onNameHandler}>
                         </input>
-                        <input type="Text" placeholder="EMALIL" value={Email} onChange={onEmailHandler}>
+                        <input type="email" placeholder="EMALIL" value={Email} onChange={onEmailHandler}>
                         </input>
-                        <input type="Text" placeholder="PASSWORD" value={Password} onChange={onPasswordHandler}>
+                        <input type="password" placeholder="PASSWORD" value={Password} onChange={onPasswordHandler}>
                         </input><br/>
-                        <Link to="/login">
+                        <input type="password" placeholder="PASSWORD" value={ConfirmPassword} onChange={onConfirmPasswordHandler}>
+                        </input><br/>
                         <button className="JoinBtn">JOIN</button>
-                        </Link>
                     </form>
             </div>
         </div>
     )
 }
-
