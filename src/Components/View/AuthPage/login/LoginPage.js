@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../../_actions/user_action";
 import { useNavigate } from "react-router-dom"
@@ -8,11 +7,11 @@ export default function LoginPage(props) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [Id, setId] = useState("");
+  const [Email, setEmail] = useState("");
   const [Password, setPassword] = useState("");
 
-  const onIdHandler = (e) => {
-    setId(e.currentTarget.value);
+  const onEmailHandler = (e) => {
+    setEmail(e.currentTarget.value);
   };
   const onPasswordHandler = (e) => {
     setPassword(e.currentTarget.value);
@@ -21,7 +20,7 @@ export default function LoginPage(props) {
     e.preventDefault();
 
     let body = {
-      id: Id,
+      email: Email,
       password: Password,
     };
 
@@ -41,13 +40,11 @@ export default function LoginPage(props) {
             <div className="LoginDiv">
                 <h1 className="HomeH1">My Kitchen Log</h1>
                     <form onSubmit={onSubmitHandler}>
-                        <input type="Text" placeholder="ID" value={Id} onChange={onIdHandler}>
+                        <input type="email" placeholder="EMAIL" value={Email} onChange={onEmailHandler}>
                         </input>
-                        <input type="Text" placeholder="PASSWORD" value={Password} onChange={onPasswordHandler}>
+                        <input type="password" placeholder="PASSWORD" value={Password} onChange={onPasswordHandler}>
                         </input>
-                        <Link to="/main">
                         <button className="LoginBtn" type="submit">LOGIN</button>
-                        </Link>
                     </form>
             </div>
         </div>
