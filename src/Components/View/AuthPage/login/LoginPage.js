@@ -27,7 +27,6 @@ export default function LoginPage(props) {
     dispatch(loginUser(body))
     .then((response) => {
       if (response.payload.loginSuccess) {
-        console.log(body)
         alert("로그인성공");
         navigate("/Main");
       } else {

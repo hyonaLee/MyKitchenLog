@@ -9,6 +9,7 @@ export default function Auth({children}) {
     dispatch(auth())
     .then((response) => {
         const isAuth = response.payload.isAuth;
+        // console.log("이름",response.payload.name)
         if (!isAuth) navigate("/login")
     });
     

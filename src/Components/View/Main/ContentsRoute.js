@@ -4,7 +4,6 @@ import Detail from './Detail';
 import Edit from './Edit';
 import { useParams } from 'react-router-dom';
 import Favorite from './Favorite';
-import MyPage from './MyPage';
 
 
 const ContentsRoute = () => {
@@ -21,9 +20,7 @@ const ContentsRoute = () => {
       param === "edit" ? <Edit/>
       :
        param === "favorite" ? <Favorite/>
-       :
-        param === "mypage" ? <MyPage/>
-        : null
+       : null
   );
 };
 

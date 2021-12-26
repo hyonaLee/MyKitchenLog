@@ -5,7 +5,6 @@ import { Route,Routes } from "react-router-dom";
 import RegisterPage from "./Components/View/AuthPage/register/RegisterPage";
 import LoginPage from "./Components/View/AuthPage/login/LoginPage";
 import Home from "./Components/View/Main/Home";
-import MyPage from "./Components/View/Main/MyPage";
 import Contents from "./Components/View/Main/Contents";
 import ContentsRoute from "./Components/View/Main/ContentsRoute";
 import Auth from "../src/Components/Auth/Auth"
