@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
+import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import store from "../../../Store/store";
 
@@ -8,16 +9,18 @@ function Detail() {
   useEffect(() => {
     store.LoadData();
   }, []);
-  // console.log(store.getBlogData)
+
+  const Data = toJS(store.getBlogData)
+  // console.log(Data)
 
   // Click한 ID정보 받아오기
   const currentid = Number(useParams().id);
-  // console.log("클릭한 게시물의 ID는", currentid);
-  const postFilter = store.getBlogData.filter((value) => {
-    // console.log("postFilter: ", value.id);
-    return value.id === Number(currentid);
+  console.log("클릭한 게시물의 ID는", currentid);
+  const postFilter = Data.filter((value) => {
+    // console.log("postFilter: ", value.postid);
+    return value.postid === Number(currentid);
   });
-  // console.log("postFilter", postFilter);
+  console.log("postFilter", postFilter);
   // (DEL) server로 data 삭제 요청
   function DelPosts() {
     store.DeleteData(currentid);

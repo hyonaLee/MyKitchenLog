@@ -4,7 +4,6 @@ import store from "../../../Store/store";
 import { observer } from "mobx-react";
 
 function NewPost() {
-
   //autofocus
   const onfocus = useRef();
   useEffect(() => {
@@ -20,7 +19,10 @@ function NewPost() {
   const cDate = currentDate.getDate();
   const cHour = currentDate.getHours();
   const cMin = currentDate.getMinutes();
+  const cSec = currentDate.getSeconds();
   const editTime = `${cYear}년 ${cMonth}월 ${cDate}일 ${cHour}시 ${cMin}분`;
+  // ID생성(Key)
+  const newid = Number(`${cYear}${cMonth}${cDate}${cHour}${cMin}${cSec}`);
 
   // user가 작성한 input 받아오기
   const [inputs, setInputs] = useState({
@@ -72,6 +74,7 @@ function NewPost() {
   // (POST) serer로 data 생성 요청
   const postData = () => {
     const mappingData = {
+      postid: Number(newid),
       date: editTime,
       title: title,
       tag: tagList,
@@ -83,50 +86,50 @@ function NewPost() {
 
   return (
     <>
-    <div className="EditDiv">
-      <textarea
-        className="EditTitle"
-        name="title"
-        value={title}
-        type="text"
-        placeholder="요리명"
-        onChange={onChange}
-        ref={onfocus}
-      />
-      <div className="EditTagDiv">
+      <div className="EditDiv">
         <textarea
-          className="EditTag"
-          name="tag"
-          value={tag}
+          className="EditTitle"
+          name="title"
+          value={title}
           type="text"
-          placeholder="주재료"
+          placeholder="요리명"
           onChange={onChange}
-          onKeyPress={Keypress}
+          ref={onfocus}
         />
-        <div className="EditTagShowDiv">
-          {tagList.length !== 0 &&
-            tagList.map((v, i) => {
-              return <span className="hash">#{tagList[i]} </span>;
-            })}
+        <div className="EditTagDiv">
+          <textarea
+            className="EditTag"
+            name="tag"
+            value={tag}
+            type="text"
+            placeholder="주재료"
+            onChange={onChange}
+            onKeyPress={Keypress}
+          />
+          <div className="EditTagShowDiv">
+            {tagList.length !== 0 &&
+              tagList.map((v, i) => {
+                return <span className="hash">#{tagList[i]} </span>;
+              })}
+          </div>
+        </div>
+        <textarea
+          className="EditContents"
+          name="contents"
+          value={contents}
+          placeholder="내용"
+          onChange={onChange}
+        />
+        <div className="EditBtnDiv">
+          <img src={loadfile} alt="Blob URL" width="100px" />
+          <input type="file" accept="image/*" onChange={Loadedfile} />
+          <Link to="/main">
+            <button className="EditBtn" onClick={postData}>
+              Post
+            </button>
+          </Link>
         </div>
       </div>
-      <textarea
-        className="EditContents"
-        name="contents"
-        value={contents}
-        placeholder="내용"
-        onChange={onChange}
-      />
-      <div className="EditBtnDiv">
-        <img src={loadfile} alt="Blob URL" width="100px" />
-        <input type="file" accept="image/*" onChange={Loadedfile} />
-        <Link to="/main">
-          <button className="EditBtn" onClick={postData}>
-            Post
-          </button>
-        </Link>
-      </div>
-    </div>
     </>
   );
 }

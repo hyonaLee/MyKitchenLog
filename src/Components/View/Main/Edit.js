@@ -10,14 +10,14 @@ function Edit() {
   useEffect(() => {
     store.LoadData();
   }, []);
-  // console.log(store.getBlogData)
+  const Data = toJS(store.getBlogData)
+  // console.log("LoadData",Data)
 
   // Click한 ID정보 받아오기
   const currentid = Number(useParams().id);
   // console.log("클릭한 게시물의 ID는", currentid);
-  const postFilter = store.getBlogData.filter((value) => {
-    // console.log("postFilter: ", value);
-    return value.id === Number(currentid);
+  const postFilter = Data.filter((value) => {
+    return value.postid === Number(currentid);
   });
 
   // 날짜정보얻기
@@ -87,6 +87,7 @@ function Edit() {
   //favorite status change
   const changeFavorite = () => {
     setModiFavorite(!modiFavorite)
+    console.log(modiFavorite)
   }
   // (PUT/PATCH) server로 data 수정 요청
   const modifiyData = () => {

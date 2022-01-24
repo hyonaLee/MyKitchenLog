@@ -28,8 +28,13 @@ const userSchema = mongoose.Schema({
     },
     tokenExp: {
         type: String
+    },
+    posts: {
+        type: Array,
+        default: []
     }
 })
+
 
 
 userSchema.pre('save', function (next) {

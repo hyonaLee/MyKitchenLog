@@ -340,7 +340,7 @@ input[type="search"]::-ms-clear {
       box-shadow: 3px 4px 2px #6c4806;
       border-radius: 20px;
       margin-bottom: 20%;
-      .icon{
+      .icon {
         position: absolute;
         right: 10px;
         top: 10px;
@@ -355,11 +355,13 @@ input[type="search"]::-ms-clear {
       }
       .Mainlisth3 {
         font-size: $fs4;
+        top: 200px;
         line-height: $fs5;
         color: $maincolorI;
         margin: 10px 0 15px 15px;
       }
       .Maintagh4 {
+        top: 200px;
         font-size: $fs5;
         line-height: 1.2rem;
         color: $maincolorI;
@@ -516,7 +518,7 @@ input[type="search"]::-ms-clear {
     .EditTagShowDiv {
       text-align: center;
     }
-    .hash{
+    .hash {
       background: none;
       border: 1px solid black;
       margin-top: 5px;
@@ -539,11 +541,11 @@ input[type="search"]::-ms-clear {
   }
   .EditBtnDiv {
     text-align: right;
-    .favoriteDiv{
+    .favoriteDiv {
       float: left;
       margin-left: 10%;
-      .icon{
-        vertical-align:sub;
+      .icon {
+        vertical-align: sub;
         cursor: pointer;
       }
     }
@@ -562,7 +564,7 @@ input[type="search"]::-ms-clear {
 }
 // ---------------------------------------------------MyPage Style
 
-.MyPageDiv{
+.MyPageDiv {
   width: 84%;
   height: 70vh;
   position: absolute;
@@ -606,13 +608,13 @@ input[type="search"]::-ms-clear {
         }
         .Mainlisth3 {
           position: relative;
-          top: -350px;
+          top: 0px;
           font-size: $fs3;
           color: $maincolorI;
         }
         .Maintagh4 {
           position: relative;
-          top: -350px;
+          top: 20px;
           font-size: $fs4;
           color: $maincolorI;
           margin: 0 0 0 20px;
