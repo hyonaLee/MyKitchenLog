@@ -117,7 +117,6 @@ app.post("/api/upload/addpost", (req, res) => {
           },
         },
       },
-      { new: true },
       (err, uesrInfo) => {
         if (err) return res.status(200).json({ success: false, err });
       }
@@ -139,42 +138,37 @@ app.post("/api/upload/getpost", (req, res) => {
 // 게시글 수정
 app.put(`/api/upload/updatepost`, (req, res) => {
   console.log("수정요청 받은 정보", req.body);
-  User.findOne({ email: req.body.email , postid: req.body.postid }, (err, userInfo) => {
-    console.log("userInfo", userInfo);
-    userInfo.posts.forEach((item) => {
-      if (item.postid === req.body.postid) {
+  // User.findOne({ email: req.body.email , postid: req.body.postid }, (err, userInfo) => {
+    // console.log("userInfo", userInfo);
         User.findOneAndUpdate(
+          
           { email: req.body.email , postid: req.body.postid },
-          {
-            posts: {
-              $set: {
-                postid: req.body.postid,
-                date: req.body.date,
-                title: req.body.title,
-                contents: req.body.contents,
-                tag: req.body.tag,
-                imgURL: req.body.imgURL,
-                favorite: req.body.favorite,
-              },
+          {$set: 
+            {posts: 
+            {
+              date: req.body.date,
+              title: req.body.title,
+              contents: req.body.contents,
+              tag: req.body.tag,
+              imgURL: req.body.imgURL,
+              favorite: req.body.favorite,
             },
           },
-          { new: true },
+          },
+          { returnNewDocument: true },
           (err, userInfo) => {
-            if (err) return res.status(200).json({ success: false, err });
-            res.status(200).send(userInfo.keep);
+            if (err)
+             return res.status(200).json({ success: false, err });
+            res.status(200).send(userInfo.posts);
           }
         );
-      }
-    });
-  });
+  // });
 });
 
 // 게시글 삭제
 app.put("/api/upload/delpost", (req, res) => {
   // console.log("삭제요청 받은 정보", req.body);
   User.findOne({ email: req.body.email , postid: req.body.postid }, (err, userInfo) => {
-    userInfo.posts.forEach((item) => {
-      if (item.postid === req.body.postid) {
         User.findOneAndUpdate(
           { email: req.body.email , postid: req.body.postid },
           {
@@ -184,14 +178,11 @@ app.put("/api/upload/delpost", (req, res) => {
               },
             },
           },
-          { new: true },
           (err, userInfo) => {
             if (err) return res.status(200).json({ success: false, err });
-            res.status(200).send(userInfo.keep);
+            res.status(200).send(userInfo.posts);
           }
         );
-      }
-    });
   });
 });
 
