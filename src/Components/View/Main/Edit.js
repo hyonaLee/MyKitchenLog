@@ -5,11 +5,12 @@ import { observer } from "mobx-react";
 import { toJS } from "mobx";
 import { FaHeart } from "react-icons/fa";
 
-function Edit() {
+function Edit({useremail}) {
+
   // (GET) serer로부터 data 불러오기
   useEffect(() => {
-    store.LoadData();
-  }, []);
+    store.LoadData(useremail);
+  }, [useremail]);
   const Data = toJS(store.getBlogData)
   // console.log("LoadData",Data)
 
@@ -92,6 +93,7 @@ function Edit() {
   // (PUT/PATCH) server로 data 수정 요청
   const modifiyData = () => {
     const mappingData = {
+      email: useremail,
       date: editTime,
       title: modiTitle === false ? currentTitle : modiTitle,
       tag: modiTag,
@@ -99,7 +101,7 @@ function Edit() {
       imgURL: modiURL === undefined ? currentURL : modiURL,
       favorite: modiFavorite
     };
-    store.EditData(currentid, mappingData);
+    store.EditData(currentid,useremail,mappingData);
   };
 
   return (

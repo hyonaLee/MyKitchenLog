@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import store from "../../../Store/store";
 import { observer } from "mobx-react";
 
-function NewPost() {
+function NewPost({useremail}) {
   //autofocus
   const onfocus = useRef();
   useEffect(() => {
@@ -67,13 +67,14 @@ function NewPost() {
       });
       e.preventDefault();
     }
-    console.log("인풋", inputs.tag);
-    console.log("태그리스트", tagList);
+    // console.log("인풋", inputs.tag);
+    // console.log("태그리스트", tagList);
   };
 
   // (POST) serer로 data 생성 요청
   const postData = () => {
     const mappingData = {
+      email: useremail,
       postid: Number(newid),
       date: editTime,
       title: title,

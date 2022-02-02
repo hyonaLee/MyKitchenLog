@@ -41,7 +41,7 @@ app.post("/api/users/register", (req, res) => {
 });
 
 app.post("/api/users/login", (req, res) => {
-  console.log(req.body);
+  // console.log(req.body);
   //요청된 이메일을 데이터베이스에서 있는지 찾는다.
   User.findOne({ email: req.body.email }, (err, user) => {
     if (!user) {
@@ -71,7 +71,7 @@ app.post("/api/users/login", (req, res) => {
 });
 
 app.get("/api/users/logout", auth, (req, res) => {
-  console.log("logout req.user", req.user);
+  // console.log("logout req.user", req.user);
   User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
     if (err) return res.json({ success: false, err });
     return res.status(200).send({
@@ -95,11 +95,11 @@ app.get("/api/users/auth", auth, (req, res) => {
   });
 });
 
-//---------------------------------------게시글 업로드--------------------------------------------------------------
+//---------------------------------------게시글 업로드---------------------------------------------------
 
 // 새로운 게시글 추가
 app.post("/api/upload/addpost", (req, res) => {
-  // console.log("새로운 게시글 정보", req.body);
+  // console.log("추가 요청 받은 정보", req.body);
   User.findOne({ email: req.body.email }, (err, userInfo) => {
     // console.log("userInfo", userInfo);
     User.findOneAndUpdate(
@@ -126,9 +126,9 @@ app.post("/api/upload/addpost", (req, res) => {
 
 // 게시글 로드
 app.post("/api/upload/getpost", (req, res) => {
-  // console.log("받은 정보", req.body);
+  // console.log("로드 요청 받은 정보", req.body);
   User.findOne({ email: req.body.email }, (err, userInfo) => {
-    // console.log("userInfo.posts", userInfo.posts);
+    // console.log("userInfo.posts", userInfo);
     return res.json({
       userInfo,
     });
@@ -137,53 +137,55 @@ app.post("/api/upload/getpost", (req, res) => {
 
 // 게시글 수정
 app.put(`/api/upload/updatepost`, (req, res) => {
-  console.log("수정요청 받은 정보", req.body);
-  // User.findOne({ email: req.body.email , postid: req.body.postid }, (err, userInfo) => {
-    // console.log("userInfo", userInfo);
-        User.findOneAndUpdate(
-          
-          { email: req.body.email , postid: req.body.postid },
-          {$set: 
-            {posts: 
-            {
-              date: req.body.date,
-              title: req.body.title,
-              contents: req.body.contents,
-              tag: req.body.tag,
-              imgURL: req.body.imgURL,
-              favorite: req.body.favorite,
-            },
-          },
-          },
-          { returnNewDocument: true },
-          (err, userInfo) => {
-            if (err)
-             return res.status(200).json({ success: false, err });
-            res.status(200).send(userInfo.posts);
-          }
-        );
-  // });
+  // console.log("수정 요청 받은 정보", req.body);
+  User.findOneAndUpdate(
+    { email: req.body.email, "posts.postid": req.body.postid },
+    {
+      $set: {
+        "posts.$.date": req.body.date,
+        "posts.$.title": req.body.title,
+        "posts.$.contents": req.body.contents,
+        "posts.$.tag": req.body.tag,
+        "posts.$.imgURL": req.body.imgURL,
+        "posts.$.favorite": req.body.favorite,
+      },
+    },
+    // null,
+    (err, userInfo) => {
+      if (err) {
+        console.log("수정실패");
+        return res.json({ success: false, err });
+      }
+      return res.status(200).send({
+        success: true,
+        userInfo,
+      });
+    }
+  );
 });
 
 // 게시글 삭제
 app.put("/api/upload/delpost", (req, res) => {
-  // console.log("삭제요청 받은 정보", req.body);
-  User.findOne({ email: req.body.email , postid: req.body.postid }, (err, userInfo) => {
-        User.findOneAndUpdate(
-          { email: req.body.email , postid: req.body.postid },
-          {
-            $pull: {
-              posts: {
-                postid: req.body.postid,
-              },
+  // console.log("삭제 요청 받은 정보", req.body);
+  User.findOne(
+    { email: req.body.email, postid: req.body.postid },
+    (err, userInfo) => {
+      User.findOneAndUpdate(
+        { email: req.body.email, postid: req.body.postid },
+        {
+          $pull: {
+            posts: {
+              postid: req.body.postid,
             },
           },
-          (err, userInfo) => {
-            if (err) return res.status(200).json({ success: false, err });
-            res.status(200).send(userInfo.posts);
-          }
-        );
-  });
+        },
+        (err, userInfo) => {
+          if (err) return res.status(200).json({ success: false, err });
+          res.status(200).send(userInfo);
+        }
+      );
+    }
+  );
 });
 
 const port = 5000;

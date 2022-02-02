@@ -3,11 +3,11 @@ import Header from "../Header/Header";
 import Nav from "../Header/Nav";
 import { Outlet } from "react-router-dom";
 
-const Main = ({searchstatus, SetSearchstatus}) => {
+const Main = ({searchstatus, SetSearchstatus ,username,useremail }) => {
   return (
     <div className="MainDiv">
-      <Header/>
-      <Nav searchstatus={searchstatus} SetSearchstatus={SetSearchstatus}/>
+      <Header username={username} useremail={useremail} />
+      <Nav searchstatus={searchstatus} SetSearchstatus={SetSearchstatus} />
       <Outlet/>
     </div>
   );

@@ -4,11 +4,12 @@ import { toJS } from "mobx";
 import { observer } from "mobx-react";
 import store from "../../../Store/store";
 
-function Detail() {
+function Detail({useremail}) {
+  
   // (GET) serer로부터 data 불러오기
   useEffect(() => {
-    store.LoadData();
-  }, []);
+    store.LoadData(useremail);
+  }, [useremail]);
 
   const Data = toJS(store.getBlogData)
   // console.log(Data)
@@ -23,7 +24,7 @@ function Detail() {
   console.log("postFilter", postFilter);
   // (DEL) server로 data 삭제 요청
   function DelPosts() {
-    store.DeleteData(currentid);
+    store.DeleteData(currentid,useremail);
   }
 
   // modal관리

@@ -7,14 +7,15 @@ import { useEffect, useState } from "react";
 import Search from "./Search";
 import { FaHeart } from "react-icons/fa";
 
-const Contents = ({ searchstatus, SetSearchstatus }) => {
+const Contents = ({ searchstatus, SetSearchstatus, useremail }) => {
+
   // (GET) server로부터 data 불러오기
   useEffect(() => {
-    store.LoadData();
-  },[]);
+    store.LoadData(useremail);
+  },[useremail])
 
-  const Data = toJS(store.getBlogData)
-  // console.log(Data)
+  const Data = toJS(store.getBlogData);
+  // console.log(Data);
 
   // 검색어 매칭
   const [searchword, setSearchword] = useState();
@@ -23,6 +24,11 @@ const Contents = ({ searchstatus, SetSearchstatus }) => {
   });
 
   return (
+    //게시물이 하나도 없는 경우.
+    Data.length === 0 
+    ? 
+    <div className="Contents"> <p> 새로운 게시물을 등록하세요. </p></div> 
+    :
     <div className="Contents">
       {/* 검색창 show여부 */}
       {searchstatus === true ? (
