@@ -4,6 +4,7 @@ import store from "../../../Store/store";
 import { observer } from "mobx-react";
 
 function NewPost({useremail}) {
+  console.log("useremail",useremail)
   //autofocus
   const onfocus = useRef();
   useEffect(() => {

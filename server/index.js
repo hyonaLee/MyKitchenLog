@@ -3,7 +3,6 @@ const app = express();
 const cookieParser = require("cookie-parser");
 const config = require("./config/key");
 const { User } = require("./models/User");
-const { Posts } = require("./models/Posts");
 const { auth } = require("./middleware/auth");
 const cors = require("cors");
 
@@ -117,8 +116,15 @@ app.post("/api/upload/addpost", (req, res) => {
           },
         },
       },
-      (err, uesrInfo) => {
-        if (err) return res.status(200).json({ success: false, err });
+      (err, userInfo) => {
+        if (err) {
+          console.log("생성실패");
+          return res.json({ success: false, err });
+        }
+        return res.status(200).send({
+          success: true,
+          userInfo,
+        });
       }
     );
   });
