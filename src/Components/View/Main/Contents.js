@@ -11,13 +11,17 @@ const Contents = ({ searchstatus, SetSearchstatus, useremail }) => {
   const Data = toJS(store.getBlogData);
   // (GET) server로부터 data 불러오기
   useEffect(() => {
+    console.log("useEffect", useremail);
     store.LoadData(useremail);
   }, [useremail]);
 
-  useEffect(() => {}, [Data]);
+  useEffect(() => {
+  }, [Data]);
 
   // console.log(Data);
-
+if (useremail === undefined) {
+  window.location.reload()
+}
   // 검색어 매칭
   const [searchword, setSearchword] = useState();
   const result = Data.filter(function (v) {

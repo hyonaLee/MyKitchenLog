@@ -15,13 +15,13 @@ function App() {
   
   const [searchstatus, SetSearchstatus] = useState(false);
   const [username, setUsername] = useState("")
-  const [useremail, setUseremail] = useState("kiko@gmail.com")
+  const [useremail, setUseremail] = useState("")
   const dispatch = useDispatch();
 
   dispatch(auth())
   .then((response) => {
       setUsername(response.payload.name)
-      setUseremail("kiko@gmail.com")
+      setUseremail(response.payload.email)
       console.log("로그인",username,useremail)
   });
 

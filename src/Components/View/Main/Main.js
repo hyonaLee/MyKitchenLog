@@ -5,8 +5,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect } from "react";
 
 const Main = ({ searchstatus, SetSearchstatus, username, useremail }) => {
-  console.log("main", useremail);
-
+  useEffect(() => {}, [useremail]);
   return (
     <div className="MainDiv">
       <Header username={username} useremail={useremail} />
