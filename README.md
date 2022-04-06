@@ -1,4 +1,4 @@
-﻿# My Kitchen Log [Click!](http://3.88.0.222:3000/)
+﻿# My Kitchen Log 
  
  ## 기간.
  10월4일 - 11월04일
